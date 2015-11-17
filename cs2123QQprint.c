@@ -11,7 +11,7 @@ void prettyPrint(NodeT *p, int iIndent)
     if(p == NULL)
         return; 
     
-    prettyPrint(p->Child, iIndent + 1);
+    prettyPrint(p->pChild, iIndent + 1);
     printf("\t");
 
     for (i = 0; i < iIndent; i++)
