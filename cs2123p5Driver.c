@@ -3,18 +3,18 @@ cs2123p5Driver.c by Larry Clark  (For groups, place group name here and
 list your names.  For individuals, you will not be changing this.
 Purpose:
     This program manages a Price Menu for the Klunker Car Company  using a
-    binary tree to represent the information.  It uses input commands to 
+    binary tree to represent the information.  It uses input commands to
     manage the tree, print its contents, and print a quote.
 Command Parameters:
     n/a
 Input:
     DEFINE OPTION szId szSubordinateToId szTitle
         where szId is the ID of this new node,
-              szSubordinateToId is the ID of the node that is its 
+              szSubordinateToId is the ID of the node that is its
                   parent (via a pChild pointer),
-              szTitle is the title for this option (e.g., "Model").  
-        Assuming the node with szSubordinateToId exists, this inserts a 
-        new node in the tree.  If a child already exists, follow that child's 
+              szTitle is the title for this option (e.g., "Model").
+        Assuming the node with szSubordinateToId exists, this inserts a
+        new node in the tree.  If a child already exists, follow that child's
         sibling chain until you can insert it at a pointer that would be NULL.
         Note:  if we are inserting at the root, the szSubordinateToId will be "ROOT".
         Print warnings (don't terminate) if the szId already exists or if the
@@ -22,24 +22,24 @@ Input:
 
     DEFINE VALUE szId szOptionId cCostInd dCost szTitle
         where szId is the ID of this new node,
-              szOptionId is the ID of the option which is its parent 
+              szOptionId is the ID of the option which is its parent
                          (via a pChild pointer),
               cCostInd is a character (not a string) representing whether it has a cost,
               dCost is the cost which may be positive or negative,
               szTitle is the title for this option value (e.g., "Racing White").
-        Assuming the option node with szOptionId exists, this inserts a new node 
-        in the tree.  If a child already exists for that Option, follow that child's 
+        Assuming the option node with szOptionId exists, this inserts a new node
+        in the tree.  If a child already exists for that Option, follow that child's
         sibling chain until you can insert it at a pointer that would be NULL.
-        Print warnings (don't terminate) if the szId already exists or if the 
-        szOptionId doesn't exist.  If the node containing the szOptionId isn't 
+        Print warnings (don't terminate) if the szId already exists or if the
+        szOptionId doesn't exist.  If the node containing the szOptionId isn't
         an OPTION, print a warning.
 
-    PRINT ALL 
+    PRINT ALL
         prints the entire tree in a pretty print style (see sample output).
 
-    PRINT ONE szId 
-        prints one item 
-    QUOTE BEGIN 
+    PRINT ONE szId
+        prints one item
+    QUOTE BEGIN
         starts a quote selection.  determineQuote isn't called.
     QUOTE OPTION iLevel szOptionId iSelection
     …
@@ -51,7 +51,7 @@ Input:
         QUOTE OPTION 1 ENGINE_BASE 1	// selected 1.8-liter 4 Cyl Automatic
         QUOTE OPTION 1 COLOR_BASE 2	// selected BLUE
         QUOTE OPTION 1 AUDIO_BASE 2	// selected 8-TRK
-        QUOTE OPTION 0 WARRANTY 3	// selected 70k/5yr 
+        QUOTE OPTION 0 WARRANTY 3	// selected 70k/5yr
         QUOTE END
         It would print a quote:
         MODEL     BASE				        17000
@@ -61,25 +61,25 @@ Input:
         WARRANTY  70k/5yr                     900
         Total                               17850
 
-    DELETE szId	
-        This causes the specified node to be deleted 
-        from the tree.  As a result, its parent should no longer reference it.  
-        It and its descendants must be freed.  Do not delete its immediate siblings.  
-        For example, deleting the base should remove it from its parent's value chain, 
-        but should not cause PLUS and OY to be deleted.   
+    DELETE szId
+        This causes the specified node to be deleted
+        from the tree.  As a result, its parent should no longer reference it.
+        It and its descendants must be freed.  Do not delete its immediate siblings.
+        For example, deleting the base should remove it from its parent's value chain,
+        but should not cause PLUS and OY to be deleted.
         Print a warning if the szId doesn't already exist.
 
     *	a comment in the data.  It is only used to explain the data.
 
 Results:
-    The commands cause a binary tree to be modified, printed or used to get 
+    The commands cause a binary tree to be modified, printed or used to get
     a prie quote.
     Each command is also printed by this simple driver.
 Returns:
     0 - normal
     ??
 Notes:
-    1. This file contains a simple driver and some useful functions. 
+    1. This file contains a simple driver and some useful functions.
     2. Project groups will create the rest of the driver in this same file.
     3. Individuals (people not on teams) will use a .o file for the rest of the driver.
     4. Quote Selections can have a maximum of MAX_QUOTE_ITEM  entries.
@@ -97,16 +97,22 @@ Notes:
 
 int main()
 {
+
+
     Tree tree = newTree();                          // Binary tree
     char szInputBuffer[MAX_LINE_SIZE + 1];          // input text line
 
+    FILE *inputFile;
+    inputFile = fopen(INPUT_FILE, "r");
+
+    // scanf returns the number of successful inputs
     // Variables for Quote
     QuoteSelection quoteSelection = newQuoteSelection();
 
     // Read command lines until EOF
-    while (fgets(szInputBuffer, MAX_LINE_SIZE, stdin) != NULL)
+    while (fgets(szInputBuffer, MAX_LINE_SIZE, inputFile) != NULL)
     {
-        printf("%s", szInputBuffer);
+       // printf("%s", szInputBuffer);
 
         // If the line is just a comment or empty, ignore it
         if (szInputBuffer[0] == '*'  || szInputBuffer[0] == '\0')
@@ -116,12 +122,169 @@ int main()
     }
 
     // Free the tree, quote selection and stdin
-    freeTree(tree);
+   // freeTree(tree);    printf("input:%s", szInputBuffer);
     free(quoteSelection);
     fclose(stdin);
     printf("\n");
+
     return 0;
+
 }
+ void commandDelete(Tree tree, QuoteSelection quote, char szId[]){
+ printf("Command DELETE processed. Item to be deleted: %s\n" ,szId );
+   /******************************************
+    * call Delete here                       *
+    *****************************************/
+
+
+
+
+ }
+ /*************************************************************************/
+void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]){
+
+
+char szsubComandType[16];
+char szId[32];
+char *pszRemainingTxt;
+
+//get subcommand
+pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
+// continue through line of  input
+strcpy(szRemainingTxt, pszRemainingTxt);
+
+if (strcmp(szsubComandType, "ALL") == 0){
+    printf("command PRINT ALL obtained, need to call function\n");
+    /*****************************************
+    * call to print all here                 *
+    *****************************************/
+}
+if (strcmp(szsubComandType, "ONE") == 0){
+//get szID to which print
+    pszRemainingTxt = getToken(szRemainingTxt, szId, sizeof(szId)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+
+    printf("command PRINT ONE obtained, need to call function\n");
+    /*****************************************
+    * call to print ONE here                 *
+    *****************************************/
+
+
+}
+
+
+
+}
+/****************************************************************************/
+void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]){
+
+
+//get second command to see if its Option or value
+char szsubComandType[16];
+char *pszRemainingTxt;
+
+NodeT elementNode;
+char parentsNodesID[16];
+char costIden[5];
+char costValue[16];
+
+//get subcommand
+pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
+// continue through line of  input
+strcpy(szRemainingTxt, pszRemainingTxt);
+
+
+if (strcmp(szsubComandType, "OPTION") == 0){
+    elementNode.element.cNodeType = 'O';
+    elementNode.element.cCostInd = 'N';
+    //getID of node
+    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+    //get ID of it's parent
+    pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+    //get the title for node
+    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+}
+
+if(strcmp(szsubComandType, "VALUE") == 0)
+    {
+    elementNode.element.cNodeType = 'V';
+    elementNode.element.cCostInd = 'Y';
+
+    //getID of node
+    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+
+    //get ID of it's parent
+    pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+
+
+    //get cost identification
+    pszRemainingTxt = getToken(szRemainingTxt,costIden, sizeof(costIden)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+
+
+
+    //get cost
+    pszRemainingTxt = getToken(szRemainingTxt, costValue , sizeof(costValue)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+    sscanf(costValue, "%lf" , &elementNode.element.dCost);
+
+
+    //get the title for node
+    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
+    strcpy(szRemainingTxt, pszRemainingTxt);
+}
+ printf("element completed, ready to be inserted\n");
+ /***************************************************
+ * element has been filled and ready to be inserted.*
+ ****************************************************/
+
+ //call insert here
+}
+
+/***********************************************************************/
+
+void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]){
+/********
+command types
+1.DEFINE
+2.PRINT
+3.DELETE
+4.QUOTE
+*********************/
+char szcommandType[16];
+char *pszRemainingTxt;
+char szRemainingTxt[200];
+
+//get command
+pszRemainingTxt = getToken(szInputBuffer, szcommandType, sizeof(szcommandType)-1);
+
+// continue through line of  input
+strcpy(szRemainingTxt, pszRemainingTxt);
+
+
+if (strcmp(szcommandType, "DEFINE") == 0){
+    commandDefine(tree,quote, szRemainingTxt);
+}
+
+if(strcmp(szcommandType, "PRINT") == 0){
+    commandPrint(tree, quote , szRemainingTxt);
+}
+
+
+if(strcmp(szcommandType, "DELETE") == 0){
+        commandDelete(tree, quote , szRemainingTxt);
+    }
+
+if(strcmp(szcommandType, "QUOTE") == 0){
+
+    }
+}
+
 /******************** newTree **************************************
   Tree newTree()
 Purpose:
@@ -129,10 +292,10 @@ Purpose:
 Parameters:
     n/a
 Notes:
-    - Checks for malloc memory allocation error. 
+    - Checks for malloc memory allocation error.
 Returns:
-    Returns a Tree.  Note that a Tree is simply a pointer to 
-    a TreeImp. 
+    Returns a Tree.  Note that a Tree is simply a pointer to
+    a TreeImp.
 **************************************************************************/
 Tree newTree()
 {
@@ -149,10 +312,10 @@ Purpose:
 Parameters:
     n/a
 Notes:
-    - Checks for malloc memory allocation error. 
+    - Checks for malloc memory allocation error.
 Returns:
-    Returns a QuoteSelection.  Note that a QuoteSelection is simply a pointer to 
-    a QuoteSelectionImp. 
+    Returns a QuoteSelection.  Note that a QuoteSelection is simply a pointer to
+    a QuoteSelectionImp.
 **************************************************************************/
 QuoteSelection newQuoteSelection()
 {
@@ -169,21 +332,21 @@ QuoteSelection newQuoteSelection()
   void ErrExit(int iexitRC, char szFmt[], ... )
 Purpose:
     Prints an error message defined by the printf-like szFmt and the
-    corresponding arguments to that function.  The number of 
+    corresponding arguments to that function.  The number of
     arguments after szFmt varies dependent on the format codes in
-    szFmt.  
+    szFmt.
     It also exits the program with the specified exit return code.
 Parameters:
     I   int iexitRC             Exit return code for the program
     I   char szFmt[]            This contains the message to be printed
-                                and format codes (just like printf) for 
+                                and format codes (just like printf) for
                                 values that we want to print.
     I   ...                     A variable-number of additional arguments
                                 which correspond to what is needed
-                                by the format codes in szFmt. 
+                                by the format codes in szFmt.
 Notes:
-    - Prints "ERROR: " followed by the formatted error message specified 
-      in szFmt. 
+    - Prints "ERROR: " followed by the formatted error message specified
+      in szFmt.
     - Prints the file path and file name of the program having the error.
       This is the file that contains this routine.
     - Requires including <stdarg.h>
@@ -207,19 +370,19 @@ void ErrExit(int iexitRC, char szFmt[], ... )
   void warning(char szFmt[], ... )
 Purpose:
     Prints an warning message defined by the printf-like szFmt and the
-    corresponding arguments to that function.  The number of 
+    corresponding arguments to that function.  The number of
     arguments after szFmt varies dependent on the format codes in
-    szFmt.  
+    szFmt.
 Parameters:
     I   char szFmt[]            This contains the message to be printed
-                                and format codes (just like printf) for 
+                                and format codes (just like printf) for
                                 values that we want to print.
     I   ...                     A variable-number of additional arguments
                                 which correspond to what is needed
-                                by the format codes in szFmt. 
+                                by the format codes in szFmt.
 Notes:
-    - Prints "Warning: " followed by the formatted warning message specified 
-      in szFmt. 
+    - Prints "Warning: " followed by the formatted warning message specified
+      in szFmt.
     - Usually after using the warning function, your code should return.
     - Requires including <stdarg.h>
 Returns:
@@ -243,14 +406,14 @@ Purpose:
     In general, this routine optionally prints error messages and diagnostics.
     It also prints usage information.
 
-    If this is an argument error (iArg >= 0), it prints a formatted message 
+    If this is an argument error (iArg >= 0), it prints a formatted message
     showing which argument was in error, the specified message, and
-    supplemental diagnostic information.  It also shows the usage. It exits 
+    supplemental diagnostic information.  It also shows the usage. It exits
     with ERR_COMMAND_LINE.
 
-    If this is a usage error (but not specific to the argument), it prints 
-    the specific message and its supplemental diagnostic information.  It 
-    also shows the usage and exist with ERR_COMMAND_LINE. 
+    If this is a usage error (but not specific to the argument), it prints
+    the specific message and its supplemental diagnostic information.  It
+    also shows the usage and exist with ERR_COMMAND_LINE.
 
     If this is just asking for usage (iArg will be -1), the usage is shown.
     It exits with USAGE_ONLY.
@@ -284,8 +447,8 @@ void exitUsage(int iArg, char *pszMessage, char *pszDiagnosticInfo)
     // print the usage information for any type of command line error
     fprintf(stderr, "p5 \n");
     if (iArg == USAGE_ONLY)
-        exit(USAGE_ONLY); 
-    else 
+        exit(USAGE_ONLY);
+    else
         exit(ERR_COMMAND_LINE);
 }
 
@@ -294,7 +457,7 @@ char * getToken (char *pszInputTxt, char szToken[], int iTokenSize)
 Purpose:
     Examines the input text to return the next token.  It also
     returns the position in the text after that token.  This function
-    does not skip over white space, but it assumes the input uses 
+    does not skip over white space, but it assumes the input uses
     spaces to separate tokens.
 Parameters:
     I   char *pszInputTxt       input buffer to be parsed
@@ -321,7 +484,7 @@ char * getToken(char *pszInputTxt, char szToken[], int iTokenSize)
     char szDelims[20] = " \n\r";        // delimiters
     szToken[0] = '\0';
 
-    // check for NULL pointer 
+    // check for NULL pointer
     if (pszInputTxt == NULL)
         ErrExit(ERR_ALGORITHM
         , "getToken passed a NULL pointer");
