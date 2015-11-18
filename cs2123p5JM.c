@@ -30,17 +30,17 @@ void deleteItem(Tree tree, char szId[])
     
     //return if the node is null
     if (p == NULL)
-    {
-        printf("ERROR ID %s NOT FOUND\n", szId);
         return;
-    }
     
     //recurse into child nodes
     deleteItem(tree, p->pChild->element.szId);
     
-    //set parent pointer to null
-    //insert call to find parent here
-    //set parent->pChild value to null 
+    //recurse into sibling nodes
+    deleteItem(tree, p->pSibling->element.szId);
+    
+    //set the parent node's reference to NULL
+    findParent(pParent, tree->pRoot, p);
+    pParent->pChild = NULL;
     
     //delete node
     free(p);
@@ -49,5 +49,22 @@ void deleteItem(Tree tree, char szId[])
 
 NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
 {
+    //base case
+    if (p == NULL)
+        return NULL;
     
+    //check to see if we've found the matching parent
+    if (pParent->pChild == pkid)
+        return pParent;
+    
+    //recurse into sibling node if one exists
+    if (p->pSibling != NULL)
+        findParent(pParent, p->pSibling, pkid);
+    
+    //recurse into child node if one exists
+    if (p->pChild != NULL)
+        findParent(p, p->pChild, pkid);
+    
+    //no match if we're here
+    return NULL;
 }
