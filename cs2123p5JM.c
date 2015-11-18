@@ -63,7 +63,7 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
     
     //recurse into child node if one exists
     if (p->pChild != NULL)
-        return xfindParent(p, p->pChild, pkid);
+        return findParent(p, p->pChild, pkid);
     
     //no match if we're here
     return NULL;
