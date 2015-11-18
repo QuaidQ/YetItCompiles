@@ -59,11 +59,11 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
     
     //recurse into sibling node if one exists
     if (p->pSibling != NULL)
-        findParent(pParent, p->pSibling, pkid);
+        return findParent(pParent, p->pSibling, pkid);
     
     //recurse into child node if one exists
     if (p->pChild != NULL)
-        findParent(p, p->pChild, pkid);
+        return xfindParent(p, p->pChild, pkid);
     
     //no match if we're here
     return NULL;
