@@ -139,6 +139,7 @@ NodeT *findId(NodeT *p, char szId[]);
 NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid);
 void printPriceMenu(Tree tree);
 void printOne(Tree tree, char szId[]);
+void prettyPrint(NodeT *p, int iIndent);
 void freeSubTree(NodeT *p);
 void freeTree(Tree tree);
 void insertPriceMenu(Tree tree, Element element, char szParentId[]);
