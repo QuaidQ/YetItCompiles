@@ -1,7 +1,20 @@
 #include "cs2123p5.h"
 #include <stdio.h>
 
-//Recursively search through the tree to find the matching ID
+/******************** findId ****************************************
+ NodeT *findId(NodeT *p, char szId[])
+ Purpose: Finds and returns a pointer to the requested location based on element type
+ 
+ Parameters:
+ I/O     NodeT *p                Pointer to node for requested Id.
+ I       char szId[]             Element to be compared
+ 
+ Returns:
+ p       Returns a pointer to the node of the requested item
+ 
+ Notes:
+ -Will traverse entire tree if necessary.
+ **************************************************************************/
 NodeT *findId(NodeT *p, char szId[])
 {
     //base case
@@ -19,12 +32,18 @@ NodeT *findId(NodeT *p, char szId[])
 }
 
 /******************** allocateNodeT ****************************************
- NodeLL *allocateNodeT(LinkedList list, Event value)
- Purpose:
+ NodeT *allocateNodeT(QuoteSelection quote, Element element)
+ Purpose: Allocates memory for a new node in the QuoteSelection tree. Exits
+ the program with an error if no memory is available.
  
- Parameters:
+ Parameters: 
+    I/O     Quoteselection quote    Tree to be modified
+    I       Element element         Item to be inserted into the tree
  
- Returns:
+ Returns: 
+    pNew        Returns a pointer to the new node with pSibling and pChild 
+                pointing to NULL
+    ErrExit     No memory available for allocation
  
  Notes:
  
@@ -34,14 +53,29 @@ NodeT *allocateNodeT(QuoteSelection quote, Element element)
     NodeT *pNew;
     pNew = (NodeT *)malloc(sizeof(NodeT));
     if (pNew == NULL)
-        ErrExit(ERR_ALGORITHM, "No available memory for linked list.");
+        ErrExit(ERR_ALGORITHM, "No available memory for binary tree.");
     pNew->element = element;
     pNew->pSibling = NULL;
     pNew->pChild = NULL;
     return pNew;
 }
 
-//Recursively search through the tree to find where to insert
+/******************** insertT ****************************************
+ NodeT *insertT(NodeT **pp, QuoteSelection quote, Element element)
+ Purpose: Inserts into the quote tree at the requested location using double
+          pointer notation. If location is NULL, allocates memory.
+ 
+ Parameters:
+ I/O     NodeT **pp              Pointer to a pointer of the location to be inserted
+ I/O     Quoteselection quote    Tree to be modified
+ I       Element element         Item to be inserted into the tree
+ 
+ Returns:
+ pp        Returns a pointer to the node's new position
+ 
+ Notes:
+ -Will traverse entire tree if necessary.
+ **************************************************************************/
 NodeT *insertT(NodeT **pp, QuoteSelection quote, Element element)
 {
     // if NULL, allocate a new node
