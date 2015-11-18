@@ -50,7 +50,7 @@ void deleteItem(Tree tree, char szId[])
 NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
 {
     //base case
-    if (p == NULL)
+    if (p == NULL || pkid == NULL)
         return NULL;
     
     //check to see if we've found the matching parent
