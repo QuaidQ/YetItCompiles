@@ -48,7 +48,7 @@ NodeT *findId(NodeT *p, char szId[])
  Notes:
  
  **************************************************************************/
-NodeT *allocateNodeT(QuoteSelection quote, Element element)
+NodeT *allocateNodeT(Element element)
 {
     NodeT *pNew;
     pNew = (NodeT *)malloc(sizeof(NodeT));
@@ -61,13 +61,12 @@ NodeT *allocateNodeT(QuoteSelection quote, Element element)
 }
 
 /******************** insertT ****************************************
- NodeT *insertT(NodeT **pp, QuoteSelection quote, Element element)
+ NodeT *insertT(NodeT **pp, Element element)
  Purpose: Inserts into the quote tree at the requested location using double
           pointer notation. If location is NULL, allocates memory.
  
  Parameters:
  I/O     NodeT **pp              Pointer to a pointer of the location to be inserted
- I/O     Quoteselection quote    Tree to be modified
  I       Element element         Item to be inserted into the tree
  
  Returns:
@@ -76,12 +75,12 @@ NodeT *allocateNodeT(QuoteSelection quote, Element element)
  Notes:
  -Will traverse entire tree if necessary.
  **************************************************************************/
-NodeT *insertT(NodeT **pp, QuoteSelection quote, Element element)
+NodeT *insertT(NodeT **pp, Element element)
 {
     // if NULL, allocate a new node
     if (*pp == NULL)
     {
-        *pp = allocateNodeT(quote, element);
+        *pp = allocateNodeT(element);
         return *pp;
     }
     // if the ID's match, return the node
@@ -89,8 +88,8 @@ NodeT *insertT(NodeT **pp, QuoteSelection quote, Element element)
         return *pp;
     // if element type is an option, go to the child pointer
     if (element.cNodeType == 'O')
-        return insertT(&(*pp)->pChild, quote, element);
+        return insertT(&(*pp)->pChild, element);
     // else go to the sibling pointer
     else
-        return insertT(&(*pp)->pSibling, quote, element);
+        return insertT(&(*pp)->pSibling, element);
 }

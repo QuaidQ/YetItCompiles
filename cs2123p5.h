@@ -148,8 +148,8 @@ void deleteItem(Tree tree, char szId[]);
 
 
 // Helper Node Functions
-NodeT *insertT(NodeT **pp, QuoteSelection quote, Element element);
-NodeT *allocateNodeT(QuoteSelection quote, Element element);
+NodeT *insertT(NodeT **pp, Element element);
+NodeT *allocateNodeT(Element element);
 
 // Driver function to process a input data line.  Groups must write this function
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);

@@ -244,7 +244,7 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
      ****************************************************/
     
     //call insert here
-    insertT(&tree->pRoot, quote, elementNode);
+    insertT(&tree->pRoot, elementNode);
 }
 
 /***********************************************************************/
