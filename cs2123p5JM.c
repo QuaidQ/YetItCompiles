@@ -47,7 +47,7 @@ void deleteItem(Tree tree, char szId[])
     //recurse into sibling nodes
     deleteItem(tree, p->pSibling->element.szId);
     
-    //set the parent node's reference to NULL
+    //set the parent node's reference to the child node to NULL
     findParent(pParent, tree->pRoot, p);
     pParent->pChild = NULL;
     
