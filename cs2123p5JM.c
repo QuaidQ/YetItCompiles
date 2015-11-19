@@ -41,11 +41,13 @@ void deleteItem(Tree tree, char szId[])
     if (p == NULL)
         return;
     
-    //recurse into child nodes
-    deleteItem(tree, p->pChild->element.szId);
+    //recurse into child node if one exists
+    if (p->pChild != NULL)
+        deleteItem(tree, p->pChild->element.szId);
     
-    //recurse into sibling nodes
-    deleteItem(tree, p->pSibling->element.szId);
+    //recurse into sibling node if one exists
+    if (p->pSibling != NULL)
+        deleteItem(tree, p->pSibling->element.szId);
     
     //set the parent node's reference to the child node to NULL
     findParent(pParent, tree->pRoot, p);
