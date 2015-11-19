@@ -110,7 +110,7 @@ int main()
     QuoteSelection quoteSelection = newQuoteSelection();
 
     // Read command lines until EOF
-    while (fgets(szInputBuffer, MAX_LINE_SIZE, inputFile) != NULL)
+    while (fgets(szInputBuffer, MAX_LINE_SIZE, stdin) != NULL)
     {
        // printf("%s", szInputBuffer);
 
