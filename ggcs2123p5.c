@@ -48,7 +48,7 @@ NodeT *findId(NodeT *p, char szId[])
  Notes:
  
  **************************************************************************/
-NodeT *allocateNodeT(Element element)
+NodeT *allocateNodeT(Tree tree, Element element)
 {
     NodeT *pNew;
     pNew = (NodeT *)malloc(sizeof(NodeT));
@@ -80,7 +80,7 @@ NodeT *insertT(NodeT **pp, Element element)
     // if NULL, allocate a new node
     if (*pp == NULL)
     {
-        *pp = allocateNodeT(element);
+        *pp = allocateNodeT(pp, element);
         return *pp;
     }
     // if the ID's match, return the node
