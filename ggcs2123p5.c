@@ -1,10 +1,7 @@
 #include "cs2123p5.h"
 #include <stdio.h>
 #include <stdlib.h>
-<<<<<<< HEAD
-=======
 #include <string.h>
->>>>>>> origin/master
 
 /******************** findId ****************************************
  NodeT *findId(NodeT *p, char szId[])
