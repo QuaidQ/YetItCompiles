@@ -18,18 +18,29 @@
  **************************************************************************/
 NodeT *findId(NodeT *p, char szId[])
 {
+    //temp NodeT to not over write pointer
+    NodeT *pFound = NULL;
+    
     //base case
     if (p == NULL)
         return NULL;
+    
     //if element is found, return node
-    else if (szId == p->element.szId)
+    if (szId == p->element.szId)
         return p;
-    //if element type is an option, go to the child pointer
-    else if (p->element.cNodeType == 'O')
-        return findId(p->pChild, szId);
-    //if element type is a value, go to the sibling
-    else
-        return findId(p->pSibling, szId);
+    
+    
+    //recurse through the tree to find the element
+    //search for element in the children
+    if (p->pChild != NULL)
+        pFound = findId(p->pChild, szId);
+    if (pFound != NULL)
+        return pFound;
+    
+    //if not found in children, search through the siblings
+    if (p->pChild != NULL)
+        pFound = findId(p->pSibling, szId);
+    return pFound;
 }
 
 /******************** allocateNodeT ****************************************
