@@ -141,148 +141,148 @@ int main()
 
  }
  /*************************************************************************/
-void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]){
+void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+{
+    //items for getToken
+    char szsubComandType[16];
+    char szId[32];
+    char *pszRemainingTxt;
 
-
-char szsubComandType[16];
-char szId[32];
-char *pszRemainingTxt;
-
-//get subcommand
-pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
-// continue through line of  input
-strcpy(szRemainingTxt, pszRemainingTxt);
-
-if (strcmp(szsubComandType, "ALL") == 0){
-    printf("command PRINT ALL obtained, need to call function\n");
-    /*****************************************
-    * call to print all here                 *
-    *****************************************/
-}
-if (strcmp(szsubComandType, "ONE") == 0){
-//get szID to which print
-    pszRemainingTxt = getToken(szRemainingTxt, szId, sizeof(szId)-1);
+    //get subcommand
+    pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
+    // continue through line of  input
     strcpy(szRemainingTxt, pszRemainingTxt);
 
-    printf("command PRINT ONE obtained, need to call function\n");
-    /*****************************************
-    * call to print ONE here                 *
-    *****************************************/
+    if (strcmp(szsubComandType, "ALL") == 0)
+    {
+        printf("command PRINT ALL obtained, need to call function\n");
+        /*****************************************
+         * call to print all here                 *
+         *****************************************/
+    }
+    if (strcmp(szsubComandType, "ONE") == 0)
+    {
+        //get szID to which print
+        pszRemainingTxt = getToken(szRemainingTxt, szId, sizeof(szId)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
 
+        printf("command PRINT ONE obtained, need to call function\n");
+        /*****************************************
+         * call to print ONE here                 *
+         *****************************************/
 
-}
-
-
-
+    }
 }
 /****************************************************************************/
-void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]){
+void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+{
+    //get second command to see if its Option or value
+    char szsubComandType[16];
+    char *pszRemainingTxt;
+    //items to be read into the element
+    char parentsNodesID[16];
+    char costIden[5];
+    char costValue[16];
 
-
-//get second command to see if its Option or value
-char szsubComandType[16];
-char *pszRemainingTxt;
-
-NodeT elementNode;
-char parentsNodesID[16];
-char costIden[5];
-char costValue[16];
-
-//get subcommand
-pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
-// continue through line of  input
-strcpy(szRemainingTxt, pszRemainingTxt);
-
-
-if (strcmp(szsubComandType, "OPTION") == 0){
-    elementNode.element.cNodeType = 'O';
-    elementNode.element.cCostInd = 'N';
-    //getID of node
-    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
+    //element to be inserted into tree
+    NodeT *elementNode;
+    
+    //get subcommand
+    pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
+    // continue through line of  input
     strcpy(szRemainingTxt, pszRemainingTxt);
-    //get ID of it's parent
-    pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
-    strcpy(szRemainingTxt, pszRemainingTxt);
-    //get the title for node
-    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
-    strcpy(szRemainingTxt, pszRemainingTxt);
-}
 
-if(strcmp(szsubComandType, "VALUE") == 0)
+    
+    if (strcmp(szsubComandType, "OPTION") == 0)
     {
-    elementNode.element.cNodeType = 'V';
-    elementNode.element.cCostInd = 'Y';
-
-    //getID of node
-    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
-    strcpy(szRemainingTxt, pszRemainingTxt);
-
-    //get ID of it's parent
-    pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
-    strcpy(szRemainingTxt, pszRemainingTxt);
-
-
-    //get cost identification
-    pszRemainingTxt = getToken(szRemainingTxt,costIden, sizeof(costIden)-1);
-    strcpy(szRemainingTxt, pszRemainingTxt);
-
-
-
-    //get cost
-    pszRemainingTxt = getToken(szRemainingTxt, costValue , sizeof(costValue)-1);
-    strcpy(szRemainingTxt, pszRemainingTxt);
-    sscanf(costValue, "%lf" , &elementNode.element.dCost);
-
-
-    //get the title for node
-    pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
-    strcpy(szRemainingTxt, pszRemainingTxt);
-}
- printf("element completed, ready to be inserted\n");
- /***************************************************
- * element has been filled and ready to be inserted.*
- ****************************************************/
-
- //call insert here
-    insertT(&tree, quote, elementNode);
+        elementNode.element.cNodeType = 'O';
+        elementNode.element.cCostInd = 'N';
+        //getID of node
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+        //get ID of it's parent
+        pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+        //get the title for node
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+    }
+    
+    if(strcmp(szsubComandType, "VALUE") == 0)
+    {
+        elementNode.element.cNodeType = 'V';
+        elementNode.element.cCostInd = 'Y';
+        
+        //getID of node
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+        
+        //get ID of it's parent
+        pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+        
+        
+        //get cost identification
+        pszRemainingTxt = getToken(szRemainingTxt,costIden, sizeof(costIden)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+        
+        
+        
+        //get cost
+        pszRemainingTxt = getToken(szRemainingTxt, costValue , sizeof(costValue)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+        sscanf(costValue, "%lf" , &elementNode.element.dCost);
+        
+        
+        //get the title for node
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
+        strcpy(szRemainingTxt, pszRemainingTxt);
+    }
+    printf("element completed, ready to be inserted\n");
+    /***************************************************
+     * element has been filled and ready to be inserted.*
+     ****************************************************/
+    
+    //call insert here
+    insertT(&tree->pRoot, quote, elementNode);
 }
 
 /***********************************************************************/
 
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]){
-/********
-command types
-1.DEFINE
-2.PRINT
-3.DELETE
-4.QUOTE
-*********************/
-char szcommandType[16];
-char *pszRemainingTxt;
-char szRemainingTxt[200];
-
-//get command
-pszRemainingTxt = getToken(szInputBuffer, szcommandType, sizeof(szcommandType)-1);
-
-// continue through line of  input
-strcpy(szRemainingTxt, pszRemainingTxt);
-
-
-if (strcmp(szcommandType, "DEFINE") == 0){
-    commandDefine(tree,quote, szRemainingTxt);
-}
-
-if(strcmp(szcommandType, "PRINT") == 0){
-    commandPrint(tree, quote , szRemainingTxt);
-}
-
-
-if(strcmp(szcommandType, "DELETE") == 0){
+    /********
+     command types
+     1.DEFINE
+     2.PRINT
+     3.DELETE
+     4.QUOTE
+     *********************/
+    char szcommandType[16];
+    char *pszRemainingTxt;
+    char szRemainingTxt[200];
+    
+    //get command
+    pszRemainingTxt = getToken(szInputBuffer, szcommandType, sizeof(szcommandType)-1);
+    
+    // continue through line of  input
+    strcpy(szRemainingTxt, pszRemainingTxt);
+    
+    
+    if (strcmp(szcommandType, "DEFINE") == 0){
+        commandDefine(tree,quote, szRemainingTxt);
+    }
+    
+    if(strcmp(szcommandType, "PRINT") == 0){
+        commandPrint(tree, quote , szRemainingTxt);
+    }
+    
+    
+    if(strcmp(szcommandType, "DELETE") == 0){
         commandDelete(tree, quote , szRemainingTxt);
     }
-
-if(strcmp(szcommandType, "QUOTE") == 0){
-
+    
+    if(strcmp(szcommandType, "QUOTE") == 0){
+        
     }
 }
 
