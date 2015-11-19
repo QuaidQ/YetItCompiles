@@ -50,7 +50,7 @@ void deleteItem(Tree tree, char szId[])
         deleteItem(tree, p->pSibling->element.szId);
     
     //set the parent node's reference to the child node to NULL
-    findParent(pParent, tree->pRoot, p);
+    pParent = findParent(NULL, tree->pRoot, p);
     pParent->pChild = NULL;
     
     //delete node
@@ -84,23 +84,25 @@ void deleteItem(Tree tree, char szId[])
  **************************************************************************/
 NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
 {
+    NodeT *pTemp;
+    
     //base case
-    if (p == NULL || pkid == NULL)
+    if (p == NULL)
         return NULL;
     
     //check to see if we've found the matching parent
-    if (pParent->pChild == pkid)
+    if (p == pkid)
         return pParent;
     
     //recurse into sibling node if one exists
     if (p->pSibling != NULL)
         //in this call, the sibling node is now p
-        return findParent(pParent, p->pSibling, pkid);
+        pTemp = findParent(pParent, p->pSibling, pkid);
     
     //recurse into child node if one exists
     if (p->pChild != NULL)
         //in this call, p is the new parent, and the child node is the new p
-        return findParent(p, p->pChild, pkid);
+        findParent(p, p->pChild, pkid);
     
     //no match if we're here
     return NULL;
