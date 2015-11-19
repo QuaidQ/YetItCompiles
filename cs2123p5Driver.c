@@ -97,22 +97,24 @@ Notes:
 
 int main()
 {
-
-
+    printf("GOTEM");
     Tree tree = newTree();                          // Binary tree
     char szInputBuffer[MAX_LINE_SIZE + 1];          // input text line
-
+    printf("GOTEM");
     FILE *inputFile;
     inputFile = fopen(INPUT_FILE, "r");
-
+    printf("GOTEM");
     // scanf returns the number of successful inputs
     // Variables for Quote
     QuoteSelection quoteSelection = newQuoteSelection();
+    
+    printf("GOTEM");
 
     // Read command lines until EOF
     while (fgets(szInputBuffer, MAX_LINE_SIZE, inputFile) != NULL)
     {
        // printf("%s", szInputBuffer);
+        printf("GOTEM");
 
         // If the line is just a comment or empty, ignore it
         if (szInputBuffer[0] == '*'  || szInputBuffer[0] == '\0')
@@ -135,9 +137,6 @@ int main()
    /******************************************
     * call Delete here                       *
     *****************************************/
-
-
-
 
  }
  /*************************************************************************/
