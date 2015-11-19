@@ -104,5 +104,6 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
         //in this call, p is the new parent, and the child node is the new p
         findParent(p, p->pChild, pkid);
     
-    return pParent;
+    //we didn't find a parent if we're here
+    return NULL;
 }
