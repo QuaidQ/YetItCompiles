@@ -94,13 +94,15 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
     if (p == pkid)
         return pParent;
     
-    //recurse into sibling node
-    //in this call, the sibling node is now p
-    pTemp = findParent(pParent, p->pSibling, pkid);
+    //recurse into sibling node if one exists
+    if (p->pSibling != NULL)
+        //in this call, the sibling node is now p
+        pTemp = findParent(pParent, p->pSibling, pkid);
     
-    //recurse into child node
-    //in this call, p is the new parent, and the child node is the new p
-    findParent(p, p->pChild, pkid);
+    //recurse into child node if one exists
+    if (p->pChild != NULL)
+        //in this call, p is the new parent, and the child node is the new p
+        findParent(p, p->pChild, pkid);
     
     //no match if we're here
     return NULL;
