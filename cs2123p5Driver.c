@@ -97,24 +97,24 @@ Notes:
 
 int main()
 {
-    printf("GOTEM");
+    printf("GOTEM\n");
     Tree tree = newTree();                          // Binary tree
     char szInputBuffer[MAX_LINE_SIZE + 1];          // input text line
-    printf("GOTEM");
+    printf("GOTEM\n");
     FILE *inputFile;
     inputFile = fopen(INPUT_FILE, "r");
-    printf("GOTEM");
+    printf("GOTEM\n");
     // scanf returns the number of successful inputs
     // Variables for Quote
     QuoteSelection quoteSelection = newQuoteSelection();
     
-    printf("GOTEM");
+    printf("GOTEM\n");
 
     // Read command lines until EOF
-    while (fgets(szInputBuffer, MAX_LINE_SIZE, inputFile) != NULL)
+    while (fgets(szInputBuffer, MAX_LINE_SIZE, stdin) != NULL)
     {
        // printf("%s", szInputBuffer);
-        printf("GOTEM");
+        printf("GOTEM\n");
 
         // If the line is just a comment or empty, ignore it
         if (szInputBuffer[0] == '*'  || szInputBuffer[0] == '\0')
