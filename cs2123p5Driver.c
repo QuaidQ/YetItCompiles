@@ -97,14 +97,11 @@ Notes:
 
 int main()
 {
-
-
     Tree tree = newTree();                          // Binary tree
     char szInputBuffer[MAX_LINE_SIZE + 1];          // input text line
 
     FILE *inputFile;
     inputFile = fopen(INPUT_FILE, "r");
-
     // scanf returns the number of successful inputs
     // Variables for Quote
     QuoteSelection quoteSelection = newQuoteSelection();
@@ -113,22 +110,17 @@ int main()
     while (fgets(szInputBuffer, MAX_LINE_SIZE, stdin) != NULL)
     {
        // printf("%s", szInputBuffer);
-
         // If the line is just a comment or empty, ignore it
         if (szInputBuffer[0] == '*'  || szInputBuffer[0] == '\0')
             continue;                               // Command is a comment so skip it
-
         processCommand(tree, quoteSelection, szInputBuffer);
     }
-
     // Free the tree, quote selection and stdin
    // freeTree(tree);    printf("input:%s", szInputBuffer);
     free(quoteSelection);
     fclose(stdin);
     printf("\n");
-
     return 0;
-
 }
  void commandDelete(Tree tree, QuoteSelection quote, char szId[]){
  printf("Command DELETE processed. Item to be deleted: %s\n" ,szId );
