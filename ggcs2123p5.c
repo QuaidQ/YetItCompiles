@@ -1,6 +1,10 @@
 #include "cs2123p5.h"
 #include <stdio.h>
 #include <stdlib.h>
+<<<<<<< HEAD
+=======
+#include <string.h>
+>>>>>>> origin/master
 
 /******************** findId ****************************************
  NodeT *findId(NodeT *p, char szId[])
@@ -60,15 +64,15 @@ NodeT *findId(NodeT *p, char szId[])
  Notes:
  
  **************************************************************************/
-NodeT *allocateNodeT(Tree tree, Element element)
+NodeT *allocateNodeT(Element element)
 {
     NodeT *pNew;
     pNew = (NodeT *)malloc(sizeof(NodeT));
     if (pNew == NULL)
         ErrExit(ERR_ALGORITHM, "No available memory for binary tree.");
     pNew->element = element;
-    pNew->pSibling = NULL;
     pNew->pChild = NULL;
+    pNew->pSibling = NULL;
     return pNew;
 }
 
@@ -92,7 +96,7 @@ NodeT *insertT(NodeT **pp, Element element)
     // if NULL, allocate a new node
     if (*pp == NULL)
     {
-        *pp = allocateNodeT(pp, element);
+        *pp = allocateNodeT(element);
         return *pp;
     }
     // if the ID's match, return the node
