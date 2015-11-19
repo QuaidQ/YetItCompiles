@@ -195,26 +195,26 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
     
     if (strcmp(szsubComandType, "OPTION") == 0)
     {
-        elementNode.element.cNodeType = 'O';
-        elementNode.element.cCostInd = 'N';
+        elementNode->element.cNodeType = 'O';
+        elementNode->element.cCostInd = 'N';
         //getID of node
-        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode->element.szId, sizeof(elementNode->element.szId)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
         //get ID of it's parent
         pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
         //get the title for node
-        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode->element.szTitle, sizeof(elementNode->element.szTitle)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
     }
     
     if(strcmp(szsubComandType, "VALUE") == 0)
     {
-        elementNode.element.cNodeType = 'V';
-        elementNode.element.cCostInd = 'Y';
+        elementNode->element.cNodeType = 'V';
+        elementNode->element.cCostInd = 'Y';
         
         //getID of node
-        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szId, sizeof(elementNode.element.szId)-1);
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode->element.szId, sizeof(elementNode->element.szId)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
         
         //get ID of it's parent
@@ -231,11 +231,11 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
         //get cost
         pszRemainingTxt = getToken(szRemainingTxt, costValue , sizeof(costValue)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
-        sscanf(costValue, "%lf" , &elementNode.element.dCost);
+        sscanf(costValue, "%lf" , &elementNode->element.dCost);
         
         
         //get the title for node
-        pszRemainingTxt = getToken(szRemainingTxt, elementNode.element.szTitle, sizeof(elementNode.element.szTitle)-1);
+        pszRemainingTxt = getToken(szRemainingTxt, elementNode->element.szTitle, sizeof(elementNode->element.szTitle)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
     }
     printf("element completed, ready to be inserted\n");
@@ -244,7 +244,7 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
      ****************************************************/
     
     //call insert here
-    insertT(&tree->pRoot, elementNode);
+    insertT(&tree->pRoot, elementNode->element);
 }
 
 /***********************************************************************/
