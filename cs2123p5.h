@@ -154,6 +154,7 @@ NodeT *allocateNodeT(Element element);
 // Driver function to process a input data line.  Groups must write this function
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
 void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
+void stripNewline( char *str, int size);
 void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
 // Some functions provided by Larry
