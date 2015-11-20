@@ -1,3 +1,21 @@
+/******************************************************************************
+ ggcs2123p5.c by Garrett Griffin
+ Purpose:
+ Handles all inserting functions, as well as allocating memory for the new nodes.
+ Also handles findId for specific nodes.
+ Command Parameters:
+ n/a
+ 
+ Input: 
+ 
+ Results:
+ Inserts nodes into given binary tree, allocates memory for new nodes, and finds
+ specific nodes from the driver's calls.
+ 
+ Notes:
+ *******************************************************************************/
+
+
 #include "cs2123p5.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +47,6 @@ NodeT *findId(NodeT *p, char szId[])
     //if element is found, return node
     if(strcmp(p->element.szId,szId)== 0)
               return p;
-
 
     //recurse through the tree to find the element
     //search for element in the children
@@ -87,7 +104,7 @@ NodeT *allocateNodeT(Element element)
  pp        Returns a pointer to the node's new position
 
  Notes:
- -Will traverse entire tree if necessary.
+ -Call only handles a call for siblings, not children.
  **************************************************************************/
 NodeT *insertT(NodeT **pp, Element element)
 { // if the ID's match, return the node
@@ -95,9 +112,6 @@ NodeT *insertT(NodeT **pp, Element element)
     if (*pp == NULL){
        *pp = allocateNodeT(element);
         return *pp;
-    }else {
+    } else
           return insertT(&(*pp)->pSibling,element);
-
-    }
-
 }
