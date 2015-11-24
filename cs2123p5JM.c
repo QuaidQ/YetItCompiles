@@ -106,6 +106,7 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
             if (pTemp != NULL)
                 return pTemp;
         }
+
         //recurse into child node if one exists
         if (p->pChild != NULL) {
             //in this call, p is the new parent, and the child node is the new p
@@ -116,6 +117,7 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
                 return pTemp;
         }
     }
+
     return NULL;
 
 }

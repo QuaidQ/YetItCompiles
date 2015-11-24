@@ -120,12 +120,18 @@ int main()
     NodeT *pParent;
     NodeT *p;
 
+    //retrieve a child node for testing
     p = findId(tree->pRoot, "turbo");
-    if (p != NULL)
-    pParent = findParent(pParent, tree->pRoot, p);
 
+    //run findParent against the node if it's not null
+    if (p != NULL)
+        pParent = findParent(pParent, tree->pRoot, p);
+
+    //print results
+    printf("\n------findParent test output-----------\n");
     printf("p szId: %s\n", p->element.szId);
     printf("pParent szId: %s\n", pParent->element.szId);
+    printf("------end findParent test output-------\n");
     // end findParent test code
 
     // Free the tree, quote selection and stdin
