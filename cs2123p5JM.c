@@ -86,25 +86,36 @@ void deleteItem(Tree tree, char szId[])
 NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
 {
     NodeT *pTemp;
-    
+
     //base case
     if (p == NULL)
         return NULL;
-    
-    //check to see if we've found the matching parent
-    if (p == pkid)
-        return pParent;
-    
-    //recurse into sibling node if one exists
-    if (p->pSibling != NULL)
-        //in this call, the sibling node is now p
-        pTemp = findParent(pParent, p->pSibling, pkid);
-    
-    //recurse into child node if one exists
-    if (p->pChild != NULL)
-        //in this call, p is the new parent, and the child node is the new p
-        pTemp = findParent(p, p->pChild, pkid);
-    
-    //Return what was found, whether it's the Node or NULL
-    return pTemp;
+
+    if (findId(p, pkid->element.szId) != NULL);
+    {
+        //check to see if we've found the matching parent
+        if (p == pkid)
+            return pParent;
+
+        //recurse into sibling node if one exists
+        if (p->pSibling != NULL) {
+            //in this call, the sibling node is now p
+            pTemp = findParent(pParent, p->pSibling, pkid);
+
+            //return pTemp if it's not NULL
+            if (pTemp != NULL)
+                return pTemp;
+        }
+        //recurse into child node if one exists
+        if (p->pChild != NULL) {
+            //in this call, p is the new parent, and the child node is the new p
+            pTemp = findParent(p, p->pChild, pkid);
+
+            //return pTemp if it's not NULL
+            if (pTemp != NULL)
+                return pTemp;
+        }
+    }
+    return NULL;
+
 }
