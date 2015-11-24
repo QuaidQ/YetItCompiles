@@ -115,6 +115,19 @@ int main()
         //printf("Command Obtained: %s \n\t", szInputBuffer);
             processCommand(tree, quoteSelection, szInputBuffer);
     }
+
+    //begin findParent test code
+    NodeT *pParent;
+    NodeT *p;
+
+    p = findId(tree->pRoot, "turbo");
+    if (p != NULL)
+    pParent = findParent(pParent, tree->pRoot, p);
+
+    printf("p szId: %s\n", p->element.szId);
+    printf("pParent szId: %s\n", pParent->element.szId);
+    // end findParent test code
+
     // Free the tree, quote selection and stdin
 
     freeTree(tree);
