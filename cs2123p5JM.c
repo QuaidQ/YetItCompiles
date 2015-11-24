@@ -103,8 +103,8 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
     //recurse into child node if one exists
     if (p->pChild != NULL)
         //in this call, p is the new parent, and the child node is the new p
-        findParent(p, p->pChild, pkid);
+        pTemp = findParent(p, p->pChild, pkid);
     
-    //we didn't find a parent if we're here
-    return NULL;
+    //Return what was found, whether it's the Node or NULL
+    return pTemp;
 }
