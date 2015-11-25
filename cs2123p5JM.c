@@ -75,7 +75,7 @@ void deleteItem(Tree tree, char szId[])
         printf("setting parent's child to the child's sibling, %s\n",p->pSibling->element.szId);
         pParent->pChild = p->pSibling;
     }
-        //otherwise set it to null to prevent a dangling reference
+    //otherwise set it to null to prevent a dangling reference
     else
     {
         printf("setting the parent's child pointer to null\n");
