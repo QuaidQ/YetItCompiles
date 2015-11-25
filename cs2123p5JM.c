@@ -66,7 +66,8 @@ void deleteItem(Tree tree, char szId[])
         else
             pParent->pChild = pSibling;
     }
-    //delete node
+    //delete nodes
+    freeSubTree(p->pChild);
     free(p);
 }
 /******************** findParent ******************************************

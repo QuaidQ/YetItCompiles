@@ -133,7 +133,7 @@ int main()
     //********************end findParent test code***************************************
 
     //********************begin deleteItem test code***************************************
-    deleteItem(tree, "seaGreen");
+    deleteItem(tree, "turbo");
     prettyPrint(tree->pRoot, 0);
     //********************end deleteItem test code*****************************************
 
