@@ -72,7 +72,7 @@ void deleteItem(Tree tree, char szId[])
     //If p has a sibling, update the parent node to point to it
     if (p->pSibling != NULL)
     {
-        printf("setting parent's child to the child's sibling\n");
+        printf("setting parent's child to the child's sibling, %s\n",p->pSibling->element.szId);
         pParent->pChild = p->pSibling;
     }
         //otherwise set it to null to prevent a dangling reference
