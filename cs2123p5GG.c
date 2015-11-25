@@ -28,20 +28,17 @@ NodeT *findId(NodeT *p, char szId[])
 
     //if element is found, return node
     if(strcmp(p->element.szId,szId)== 0)
-              return p;
-
+        return p;
 
     //recurse through the tree to find the element
     //search for element in the children
-    //if (p->pChild != NULL)
-        pFound = findId(p->pChild, szId);
+    pFound = findId(p->pChild, szId);
     
     if (pFound != NULL)
         return pFound;
 
-    //if not found in children, search through the siblings
-    //if (p->pChild != NULL)
-        pFound = findId(p->pSibling, szId);
+    //search through the siblings
+    pFound = findId(p->pSibling, szId);
     return pFound;
 }
 
