@@ -117,30 +117,24 @@ int main()
     }
 
     //********************begin findParent test code***************************************
-    NodeT *pParent;
-    NodeT *p;
-
-    //retrieve a child node for testing
-    p = findId(tree->pRoot, "turbo");
-
-    //run findParent against the node if it's not null
-    if (p != NULL)
-    {
-        pParent = findParent(pParent, tree->pRoot, p);
-
-        //print results
-        printf("\n------findParent test output-----------\n");
-        printf("p szId: %s\n", p->element.szId);
-        printf("pParent szId: %s\n", pParent->element.szId);
-        printf("------end findParent test output-------\n");
-    }
+//    NodeT *pParent;
+//    NodeT *p;
+//
+//    //retrieve a child node for testing
+//    p = findId(tree->pRoot, "turbo");
+//
+//    //run findParent against the node if it's not null
+//    if (p != NULL)
+//    {
+//        pParent = findParent(pParent, tree->pRoot, p);
+//        printf("p szId: %s\n", p->element.szId);
+//        printf("pParent szId: %s\n", pParent->element.szId);
+//    }
     //********************end findParent test code***************************************
 
     //********************begin deleteItem test code***************************************
-    deleteItem(tree, "empress");
-
-    prettyPrint(tree->pRoot, 0);
-
+//    deleteItem(tree, "engine_oy");
+//    prettyPrint(tree->pRoot, 0);
     //********************end deleteItem test code*****************************************
 
     // Free the tree, quote selection and stdin
