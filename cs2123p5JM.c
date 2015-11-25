@@ -50,6 +50,23 @@ void deleteItem(Tree tree, char szId[])
         printf("p set to: %s\n", p->element.szId);
     }
 
+    //get the parent of p
+    pParent = findParent(pParent, tree->pRoot, p);
+    printf("pParent set to: %s\n", pParent->element.szId);
+
+    //If p has a sibling, update the parent node to point to it
+    if (p->pSibling != NULL)
+    {
+        printf("setting parent's child to the child's sibling, %s\n",p->pSibling->element.szId);
+        pParent->pChild = p->pSibling;
+    }
+        //otherwise set it to null to prevent a dangling reference
+    else
+    {
+        printf("setting the parent's child pointer to null\n");
+        pParent->pChild = NULL;
+    }
+
     //recurse into child node if one exists
     if (p->pChild != NULL)
     {
@@ -63,23 +80,6 @@ void deleteItem(Tree tree, char szId[])
         }
 
         deleteItem(tree,p->pChild->element.szId);
-    }
-
-    //get the parent of p
-    pParent = findParent(pParent, tree->pRoot, p);
-    printf("pParent set to: %s\n", pParent->element.szId);
-
-    //If p has a sibling, update the parent node to point to it
-    if (p->pSibling != NULL)
-    {
-        printf("setting parent's child to the child's sibling, %s\n",p->pSibling->element.szId);
-        pParent->pChild = p->pSibling;
-    }
-    //otherwise set it to null to prevent a dangling reference
-    else
-    {
-        printf("setting the parent's child pointer to null\n");
-        pParent->pChild = NULL;
     }
 
     //delete node

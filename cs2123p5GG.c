@@ -33,14 +33,14 @@ NodeT *findId(NodeT *p, char szId[])
 
     //recurse through the tree to find the element
     //search for element in the children
-    if (p->pChild != NULL)
+    //if (p->pChild != NULL)
         pFound = findId(p->pChild, szId);
     
     if (pFound != NULL)
         return pFound;
 
     //if not found in children, search through the siblings
-    if (p->pChild != NULL)
+    //if (p->pChild != NULL)
         pFound = findId(p->pSibling, szId);
     return pFound;
 }

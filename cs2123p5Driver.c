@@ -137,12 +137,12 @@ int main()
     //********************end findParent test code***************************************
 
     //********************begin deleteItem test code***************************************
-    deleteItem(tree, "engine_oy");
+    deleteItem(tree, "turboElite");
 
-    p = findId(tree->pRoot, "empress");
-    if (p != NULL)
-     printf("%s Price: %f",p->element.szId, p->element.dCost);
-    //prettyPrint(tree->pRoot, 0);
+//    p = findId(tree->pRoot, "turboElite");
+//    if (p != NULL)
+//     printf("%s Price: %f",p->element.szId, p->element.dCost);
+    prettyPrint(tree->pRoot, 0);
 
     //********************end deleteItem test code*****************************************
 
