@@ -66,21 +66,6 @@ void deleteItem(Tree tree, char szId[])
         else
             pParent->pChild = pSibling;
     }
-
-    //recurse into the child node if it exists
-    if (p->pChild != NULL)
-    {
-        printf("recursing into child %s\n",p->pChild->element.szId);
-
-        //recurse into the child's sibling node if one exists
-        if (p->pChild->pSibling != NULL)
-        {
-            printf("recursing into child sibling %s\n", p->pChild->pSibling->element.szId);
-            deleteItem(tree, p->pChild->pSibling->element.szId);
-        }
-
-        deleteItem(tree,p->pChild->element.szId);
-    }
     //delete node
     free(p);
 }

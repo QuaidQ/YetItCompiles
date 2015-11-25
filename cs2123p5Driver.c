@@ -133,8 +133,8 @@ int main()
     //********************end findParent test code***************************************
 
     //********************begin deleteItem test code***************************************
-//    deleteItem(tree, "engine_oy");
-//    prettyPrint(tree->pRoot, 0);
+    deleteItem(tree, "seaGreen");
+    prettyPrint(tree->pRoot, 0);
     //********************end deleteItem test code*****************************************
 
     // Free the tree, quote selection and stdin
