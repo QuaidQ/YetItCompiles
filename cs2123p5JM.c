@@ -67,6 +67,19 @@ void deleteItem(Tree tree, char szId[])
             pParent->pChild = pSibling;
     }
 
+    if (p->pChild != NULL)
+    {
+        printf("recursing into child %s\n",p->pChild->element.szId);
+
+        //recurse into the child's sibling node if one exists
+        if (p->pChild->pSibling != NULL)
+        {
+            printf("recursing into child sibling %s\n", p->pChild->pSibling->element.szId);
+            deleteItem(tree, p->pChild->pSibling->element.szId);
+        }
+
+        deleteItem(tree,p->pChild->element.szId);
+    }
     //delete node
     free(p);
 }
@@ -109,6 +122,7 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
         //check to see if we've found the matching parent
         if (p == pkid)
             return pParent;
+
         //recurse into sibling node if one exists
         if (p->pSibling != NULL) {
             //in this call, the sibling node is now p
@@ -118,6 +132,7 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
             if (pTemp != NULL)
                 return pTemp;
         }
+
         //recurse into child node if one exists
         if (p->pChild != NULL) {
             //in this call, p is the new parent, and the child node is the new p
