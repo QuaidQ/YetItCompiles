@@ -116,7 +116,7 @@ int main()
             processCommand(tree, quoteSelection, szInputBuffer);
     }
 
-    //begin findParent test code
+    //********************begin findParent test code***************************************
     NodeT *pParent;
     NodeT *p;
 
@@ -134,10 +134,17 @@ int main()
         printf("pParent szId: %s\n", pParent->element.szId);
         printf("------end findParent test output-------\n");
     }
-    // end findParent test code
+    //********************end findParent test code***************************************
+
+    //********************begin deleteItem test code***************************************
+    deleteItem(tree, "engine_oy");
+
+    //p = findId(tree->pRoot, "turboElite");
+    //printf("TurboElite Price: %f",p->element.dCost);
+
+    //********************end deleteItem test code*****************************************
 
     // Free the tree, quote selection and stdin
-
     freeTree(tree);
     free(tree);
     free(quoteSelection);
