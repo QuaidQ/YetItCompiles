@@ -139,8 +139,10 @@ int main()
     //********************begin deleteItem test code***************************************
     deleteItem(tree, "engine_oy");
 
-    //p = findId(tree->pRoot, "turboElite");
-    //printf("TurboElite Price: %f",p->element.dCost);
+    p = findId(tree->pRoot, "empress");
+    if (p != NULL)
+     printf("%s Price: %f",p->element.szId, p->element.dCost);
+    //prettyPrint(tree->pRoot, 0);
 
     //********************end deleteItem test code*****************************************
 
