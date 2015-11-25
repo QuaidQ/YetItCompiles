@@ -137,11 +137,8 @@ int main()
     //********************end findParent test code***************************************
 
     //********************begin deleteItem test code***************************************
-    deleteItem(tree, "turboElite");
+    deleteItem(tree, "empress");
 
-//    p = findId(tree->pRoot, "turboElite");
-//    if (p != NULL)
-//     printf("%s Price: %f",p->element.szId, p->element.dCost);
     prettyPrint(tree->pRoot, 0);
 
     //********************end deleteItem test code*****************************************

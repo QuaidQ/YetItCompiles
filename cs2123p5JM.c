@@ -2,8 +2,7 @@
  cs2123p5JM.c by Justin Mungal
  
  Purpose:
-  -Defines deleteItem and findParent functions
-  -test
+  -Defines deleteItem, findParent, and findPredSibling
  
  *******************************************************************************/
 #define _CRT_SECURE_NO_WARNINGS 1
@@ -33,60 +32,44 @@
  **************************************************************************/
 void deleteItem(Tree tree, char szId[])
 {
-    printf("Beginning deleteItem call on szId %s\n", szId);
-    NodeT *p;
-    NodeT *pParent;
-    
+    NodeT *p, *pParent, *pSibling, *pPredSibling;
+
     p = findId(tree->pRoot, szId);
 
     //return if the node is null
     if (p == NULL)
-    {
-        printf("Null node, returning!\n");
         return;
-    }
-    else
-    {
-        printf("p set to: %s\n", p->element.szId);
-    }
 
     //get the parent of p
     pParent = findParent(pParent, tree->pRoot, p);
-    printf("pParent set to: %s\n", pParent->element.szId);
 
-    //If p has a sibling, update the parent node to point to it
+    //get the predecessor sibling
+    pPredSibling = findPredSibling(tree->pRoot, p);
+
+    //if the node we are deleting has a sibling, set that as the predecessor sibling's new sibling
+    //otherwise set it to NULL to remove the dangling reference
     if (p->pSibling != NULL)
     {
-        printf("setting parent's child to the child's sibling, %s\n",p->pSibling->element.szId);
-        pParent->pChild = p->pSibling;
+        pSibling = p->pSibling;
+
+        if (pPredSibling != NULL)
+            pPredSibling->pSibling = pSibling;
     }
-        //otherwise set it to null to prevent a dangling reference
     else
+        pPredSibling->pSibling = NULL;
+
+    //update parent pointer if it points to the deleted node
+    if (pParent->pChild == p)
     {
-        printf("setting the parent's child pointer to null\n");
-        pParent->pChild = NULL;
-    }
-
-    //recurse into child node if one exists
-    if (p->pChild != NULL)
-    {
-        printf("recursing into child %s\n",p->pChild->element.szId);
-
-        //recurse into the child's sibling node if one exists
-        if (p->pChild->pSibling != NULL)
-        {
-            printf("recursing into child sibling %s\n", p->pChild->pSibling->element.szId);
-            deleteItem(tree, p->pChild->pSibling->element.szId);
-        }
-
-        deleteItem(tree,p->pChild->element.szId);
+        if (pPredSibling != NULL)
+            pParent->pChild = pPredSibling;
+        else
+            pParent->pChild = pSibling;
     }
 
     //delete node
-    printf("deleting %s.\n",p->element.szId);
     free(p);
 }
-
 /******************** findParent ******************************************
  NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
  
@@ -120,12 +103,12 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
     if (p == NULL)
         return NULL;
 
+    //return null if p does not have a valid szId
     if (findId(p, pkid->element.szId) != NULL);
     {
         //check to see if we've found the matching parent
         if (p == pkid)
             return pParent;
-
         //recurse into sibling node if one exists
         if (p->pSibling != NULL) {
             //in this call, the sibling node is now p
@@ -135,7 +118,6 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
             if (pTemp != NULL)
                 return pTemp;
         }
-
         //recurse into child node if one exists
         if (p->pChild != NULL) {
             //in this call, p is the new parent, and the child node is the new p
@@ -146,7 +128,46 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
                 return pTemp;
         }
     }
-
     return NULL;
+}
+/******************** findPredSibling ****************************************
+ NodeT *findPredSibling(NodeT *p, NodeT *pPredSibling)
+ Purpose: Finds and returns a pointer to a node that has pSiblingNode
+          as it's sibling (the predecessor sibling node).
 
+ Parameters:
+ I/O     NodeT *p                A node pointer from which to start searching
+                                 and comparing.
+ I       NodeT *pSiblingNode     The sibling node we are searching for. We are
+                                 trying to find a predecessor node for it.
+
+ Returns:
+ p       The predecessor sibling node, if it exists.
+
+ Notes:
+ -Will traverse entire tree if necessary.
+ **************************************************************************/
+NodeT *findPredSibling(NodeT *p, NodeT *pSiblingNode)
+{
+    //temp NodeT to not over write pointer
+    NodeT *pFound = NULL;
+
+    //base case
+    if (p == NULL)
+        return NULL;
+
+    //if element is found, return node
+    if(p->pSibling != NULL && p->pSibling == pSiblingNode)
+        return p;
+
+    //recurse through the tree to find the element
+    //search for element in the children
+    pFound = findPredSibling(p->pChild, pSiblingNode);
+
+    if (pFound != NULL)
+        return pFound;
+
+    //search through the siblings
+    pFound = findPredSibling(p->pSibling, pSiblingNode);
+    return pFound;
 }
