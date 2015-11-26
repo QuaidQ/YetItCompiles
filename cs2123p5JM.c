@@ -266,9 +266,7 @@ void printQuoteDetails(Tree tree, QuoteSelection quote) {
 
         if (pkid->element.cCostInd == 'n') {
             printf("%-30s\n", pkid->element.szTitle);
-            for (j = 0; j <= quote->quoteItemM[i].iLevel; j++) {
-                printf("   ");
-            }
+
         } else {
             printf("%-30s%-8.2lf\n\t", pkid->element.szTitle, pkid->element.dCost);
            
