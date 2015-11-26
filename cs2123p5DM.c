@@ -31,16 +31,16 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
         char parentsNodesID[16] = "";
         char costIden[5];
         char costValue[16];
-        
-        
+
+
         //element to be inserted into tree
         Element element;
         //get subcommand
         pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
         // continue through line of  input
         strcpy(szRemainingTxt, pszRemainingTxt);
-        
-        
+
+
         if (strcmp(szsubComandType, "OPTION") == 0)
         {
             element.cNodeType = 'O';
@@ -56,17 +56,12 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
                 strcpy(szRemainingTxt, pszRemainingTxt);
                 //element completed ready to be inserted
                 insertPriceMenu(tree,element,parentsNodesID);
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> origin/master
         }
         else if(strcmp(szsubComandType, "VALUE") == 0)
         {
             element.cNodeType = 'V';
                 element.cCostInd = 'Y';
-<<<<<<< HEAD
 
                 //getID of node
                 pszRemainingTxt = getToken(szRemainingTxt, element.szId, sizeof(element.szId)-1);
@@ -83,66 +78,30 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
 
 
 
-=======
-                
-                //getID of node
-                pszRemainingTxt = getToken(szRemainingTxt, element.szId, sizeof(element.szId)-1);
-                strcpy(szRemainingTxt, pszRemainingTxt);
-                
-                //get ID of it's parent
-                pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
-                strcpy(szRemainingTxt, pszRemainingTxt);
-                
-                
-                //get cost identification
-                pszRemainingTxt = getToken(szRemainingTxt,costIden, sizeof(costIden)-1);
-                strcpy(szRemainingTxt, pszRemainingTxt);
-                
-                
-                
->>>>>>> origin/master
                 //get cost
                 pszRemainingTxt = getToken(szRemainingTxt, costValue , sizeof(costValue)-1);
                 strcpy(szRemainingTxt, pszRemainingTxt);
                 sscanf(costValue, "%lf" , &element.dCost);
-<<<<<<< HEAD
 
 
                 //get the title for node
 
-=======
-                
-                
-                //get the title for node
-                
->>>>>>> origin/master
                 // pszRemainingTxt = getToken(szRemainingTxt, element.szTitle, sizeof(element.szTitle)-1);
                 //strcpy(szRemainingTxt, pszRemainingTxt);
                 strcpy(element.szTitle,szRemainingTxt);
                 stripNewline(element.szTitle, 30);
-<<<<<<< HEAD
 
                 //element completed, ready to be inserted
                 insertPriceMenu(tree,element,parentsNodesID);
 
-=======
-                
-                //element completed, ready to be inserted
-                insertPriceMenu(tree,element,parentsNodesID);
-                
->>>>>>> origin/master
         }
-    
+
         /***************************************************
          * element has been filled and ready to be inserted.*
          ****************************************************/
-        
-        //call insert here
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> origin/master
+        //call insert here
+
         return;
 }
 /*********************commandDefine****************************************
@@ -166,11 +125,7 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[]){
     //here we handle if the root is empty so we insert
     //to go down the list of roots sibilings until it hits null
     //and inserts
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> origin/master
         if(strcmp(szParentId,"ROOT")== 0){
             //printf("parent ID is ROOT so inserting to the root\n\t");
             if(tree->pRoot == NULL){
@@ -179,18 +134,13 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[]){
                     return;
             }
             //p is pointing to sibling of pROOT;
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> origin/master
                 if(tree->pRoot->pSibling == NULL){
                     //    printf("Root SIBLING is empty, inserting here\n\n");
                     tree->pRoot->pSibling = allocateNodeT(element);
                         return;
                 }
             return;
-<<<<<<< HEAD
         }
         else{
                 NodeT *p;
@@ -224,35 +174,6 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[]){
 
                 }
         }
-=======
-        }
-        else{
-                NodeT *p;
-                //insertion at the tree handled
-                //now normal insert
-                // find parent...
-                if (findId(tree->pRoot,szParentId) != NULL){
-                    //found
-                    //check if parent is the same as option
-                    //or the item is already in the menu
-                    if (findId(tree->pRoot,element.szId) != NULL){
-                   //    ErrExit(ERR_DATA, "Option trying to be inserted is already in the Menu");
-                       printf("Item is already in the menu\n\t");
-                            return;
-                    }
-                    p = findId(tree->pRoot,szParentId);
-                        p = insertT(&p->pChild,element);
- }
-                else{
-                   // ErrExit(ERR_DATA, "Option trying to be inserted at wrong place, wrong parent ID from Input.");
-                     printf("OOOPS NO PARENT FOUND\n\tcan't insert that");
-                        printf("\n\t");
-              return;
-                
-                
-                }
-        }
->>>>>>> origin/master
 }
 
 /*********************commandDelete****************************************
@@ -268,11 +189,7 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[]){
   Returns:
   N/A
  Notes:
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> origin/master
  *************************************************************************/
 void commandDelete(Tree tree, QuoteSelection quote, char szId[]){
     //      printf("Command DELETE processed. Item to be deleted: %s\n" ,szId );
@@ -315,7 +232,6 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
     strcpy(szRemainingTxt, pszRemainingTxt);
 
     if (strcmp(szsubComandType, "ALL") == 0)
-<<<<<<< HEAD
     {
         //  printf("command PRINT ALL obtained, need to call function\n\n");
         /*****************************************
@@ -325,17 +241,6 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
     }
     if (strcmp(szsubComandType, "ONE") == 0)
     {
-=======
-    {
-        //  printf("command PRINT ALL obtained, need to call function\n\n");
-        /*****************************************
-         * call to print all here                 *
-         *****************************************/
-        printPriceMenu(tree);
-    }
-    if (strcmp(szsubComandType, "ONE") == 0)
-    {
->>>>>>> origin/master
         //get szID to which print
         pszRemainingTxt = getToken(szRemainingTxt, szId, sizeof(szId)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
@@ -363,25 +268,21 @@ Notes:
  *************************************************************************/
 
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]){
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> origin/master
         char szCommandType[16];
         char *pszRemainingTxt;
         char szRemainingTxt[200];
-        
+
         //get command
         pszRemainingTxt = getToken(szInputBuffer, szCommandType, sizeof(szCommandType)-1);
-        
+
         // continue through line of  input
         strcpy(szRemainingTxt, pszRemainingTxt);
-        
+
         if (strcmp(szCommandType, "DEFINE") == 0){
             commandDefine(tree,quote, szRemainingTxt);
         }
-    
+
         if(strcmp(szCommandType, "PRINT") == 0){
             commandPrint(tree, quote,szRemainingTxt);
         }
@@ -422,11 +323,7 @@ void freeSubTree(NodeT * p)
 {
     if( p == NULL)
         return;
-<<<<<<< HEAD
 
-=======
-   
->>>>>>> origin/master
    freeSubTree(p->pSibling);
    freeSubTree(p->pChild);
 

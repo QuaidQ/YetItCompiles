@@ -25,18 +25,26 @@ void prettyPrint(NodeT *p, int iIndent)
     int i;
 
 
-    if(p == NULL)
+    if(p == NULL){
+        //printf("null");
         return;
-    for (i = 0; i <=iIndent; i++)
-        printf("   ");
+    }
+    //printf("is not null so what is p pointing to %s \n", p->element.szTitle );
+
+ for (i = 0; i <=iIndent; i++)
+        printf("\t");
+
     if (p->element.cCostInd == 'N')
-        printf("%-30s\n", p->element.szTitle);
+        printf("%s\n", p->element.szTitle);
     // if it does have a value print both item title and its cost
     else
-        printf("%-30s%-8.2lf\n", p->element.szTitle, p->element.dCost);
+        printf("%s %.2lf\n", p->element.szTitle, p->element.dCost);
+
+    //printf("\n");
 
     prettyPrint(p->pChild, iIndent + 1);
-
+     //if it does not have a cost print just the item title
+    //printf("are we getting here");
     prettyPrint(p->pSibling, iIndent);
 
     }
@@ -60,7 +68,8 @@ void printPriceMenu(Tree tree)
 {
     int iIndent;
     iIndent = 0;
-//hello
+   printf("\t\tprinting the whole menu!!\n");
+  // printf("whats int the root??? ",tree->pRoot->element.szId);
     prettyPrint(tree->pRoot, iIndent);
 }
 
@@ -84,13 +93,16 @@ void printOne(Tree tree, char szId[])
     NodeT *p;
     p = findId(tree->pRoot, szId);
 
-    if (p == NULL){
-//         ErrExit(ERR_DATA, "ERROR ID %s NOT FOUND\n", szId);
-      printf("ERROR ID %s NOT FOUND\n", szId);
-    }    else if (p->element.cCostInd == 'N')
-        printf("Title: %-30s\n", p->element.szTitle);
+    if (p == NULL)
+        printf("ERROR ID %s NOT FOUND\n", szId);
+    else{
+            if (p->element.cCostInd == 'N')
+        printf("%s\n", p->element.szTitle);
     // if it does have a value print both item title and its cost
     else
+        printf("%s %.2lf\n", p->element.szTitle, p->element.dCost);
 
-        printf("Title: %s\n Cost: %.2lf\n", p->element.szTitle, p->element.dCost);
+}
+
+
 }

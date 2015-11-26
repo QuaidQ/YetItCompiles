@@ -133,13 +133,8 @@ int main()
     //********************end findParent test code***************************************
 
     //********************begin deleteItem test code***************************************
-<<<<<<< HEAD
     //deleteItem(tree, "turbo");
     //prettyPrint(tree->pRoot, 0);
-=======
-    deleteItem(tree, "turbo");
-    prettyPrint(tree->pRoot, 0);
->>>>>>> origin/master
     //********************end deleteItem test code*****************************************
 
     // Free the tree, quote selection and stdin
