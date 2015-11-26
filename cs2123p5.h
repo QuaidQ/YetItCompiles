@@ -58,7 +58,7 @@ int QuoteBegun;
 #define USAGE_ERR           -1     // usage error, show message and usage information
 
 /*** typedefs ***/
-
+int filledQuote[MAX_QUOTE_ITEM+ 1];
 typedef char Token[MAX_TOKEN_SIZE + 1];     // token type to help with parsing
 
 // typedefs for the binary tree
@@ -157,6 +157,7 @@ NodeT *insertT(NodeT **pp, Element element);
 NodeT *allocateNodeT(Element element);
 NodeT *findPredSibling(NodeT *p, NodeT *pPredSibling);
 NodeT *getOption(Tree tree, char szId[], int iSelection);
+void printQuoteDetails(QuoteSelection quote);
 // Driver function to process a input data line.  Groups must write this function
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
 void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
