@@ -20,7 +20,6 @@ void prettyPrint(NodeT *p, int iIndent)
  Notes:
     Work horse to printPriceMenu function
 
-    --cliontest
  **************************************************************************/
 void prettyPrint(NodeT *p, int iIndent)
 {
