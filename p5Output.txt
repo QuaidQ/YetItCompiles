@@ -1,0 +1,197 @@
+   Model                         
+   Warranty                      
+   Model                         
+      Base                          17000.00
+      Plus                          19000.00
+      OY                            26000.00
+   Warranty                      
+   Model                         
+      Base                          17000.00
+         Engine                        
+         Color                         
+         Audio                         
+      Plus                          19000.00
+         Engine                        
+         Color                         
+         Audio                         
+      OY                            26000.00
+         Engine                        
+         Color                         
+         Audio                         
+   Warranty                      
+Title: Engine
+ Cost: -2.00
+   Model                         
+      Base                          17000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     0.00    
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            White                         0.00    
+            Blue                          50.00   
+         Audio                         
+            Audio Std                     0.00    
+            8-Track                       -100.00 
+      Plus                          19000.00
+         Engine                        
+         Color                         
+         Audio                         
+      OY                            26000.00
+         Engine                        
+         Color                         
+         Audio                         
+   Warranty                      
+ERROR ID 8TrkBase NOT FOUND
+   Model                         
+      Base                          17000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     0.00    
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            White                         0.00    
+            Blue                          50.00   
+         Audio                         
+            Audio Std                     0.00    
+            8-Track                       -100.00 
+      Plus                          19000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     -100.00 
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            Racing White                  0.00    
+            Deep Blue                     0.00    
+            Metallic Coal                 50.00   
+         Audio                         
+            Audio Std                     0.00    
+            Surround                      200.00  
+      OY                            26000.00
+         Engine                        
+            Turbo                         0.00    
+            Turbo Elite                   2500.00 
+         Color                         
+            Black Pearl                   -50.00  
+            Sea Green                     0.00    
+            Empress                       100.00  
+         Audio                         
+            Surround Std                  0.00    
+            Surround Premium              250.00  
+   Warranty                      
+   Model                         
+      Base                          17000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     0.00    
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            White                         0.00    
+            Blue                          50.00   
+         Audio                         
+            Audio Std                     0.00    
+            8-Track                       -100.00 
+      Plus                          19000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     -100.00 
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            Racing White                  0.00    
+            Deep Blue                     0.00    
+            Metallic Coal                 50.00   
+         Audio                         
+            Audio Std                     0.00    
+            Surround                      200.00  
+      OY                            26000.00
+         Engine                        
+            Turbo                         0.00    
+            Turbo Elite                   2500.00 
+         Color                         
+            Black Pearl                   -50.00  
+            Sea Green                     0.00    
+            Empress                       100.00  
+         Audio                         
+            Surround Std                  0.00    
+            Surround Premium              250.00  
+   Warranty                      
+      40k/3yr                       500.00  
+      55k/4yr                       700.00  
+      70k/5yr                       900.00  
+OOOPS NO PARENT FOUND
+	can't insert that
+	Item is already in the menu
+	OOOPS NO PARENT FOUND
+	can't insert that
+	   Model                         
+      Base                          17000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     0.00    
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            White                         0.00    
+            Blue                          50.00   
+         Audio                         
+            Audio Std                     0.00    
+            8-Track                       -100.00 
+      Plus                          19000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     -100.00 
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            Racing White                  0.00    
+            Deep Blue                     0.00    
+            Metallic Coal                 50.00   
+         Audio                         
+            Audio Std                     0.00    
+            Surround                      200.00  
+      OY                            26000.00
+         Engine                        
+            Turbo                         0.00    
+            Turbo Elite                   2500.00 
+         Color                         
+            Black Pearl                   -50.00  
+            Sea Green                     0.00    
+            Empress                       100.00  
+         Audio                         
+            Surround Std                  0.00    
+            Surround Premium              250.00  
+   Warranty                      
+      40k/3yr                       500.00  
+      55k/4yr                       700.00  
+      70k/5yr                       900.00  
+   Model                         
+      Base                          17000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     0.00    
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            White                         0.00    
+            Blue                          50.00   
+         Audio                         
+            Audio Std                     0.00    
+            8-Track                       -100.00 
+      Plus                          19000.00
+         Engine                        
+            1.8-liter 4 Cyl Automatic     -100.00 
+            1.8-liter 4 Cyl 6spd Manual   0.00    
+         Color                         
+            Racing White                  0.00    
+            Deep Blue                     0.00    
+            Metallic Coal                 50.00   
+         Audio                         
+            Audio Std                     0.00    
+            Surround                      200.00  
+      OY                            26000.00
+         Engine                        
+            Turbo                         0.00    
+            Turbo Elite                   2500.00 
+         Color                         
+            Black Pearl                   -50.00  
+            Sea Green                     0.00    
+            Empress                       100.00  
+         Audio                         
+            Surround Std                  0.00    
+            Surround Premium              250.00  
+   Warranty                      
+      40k/3yr                       500.00  
+      55k/4yr                       700.00  
+      70k/5yr                       900.00  
+Title: Color
+ Cost: -2.00
+
