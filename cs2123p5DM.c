@@ -143,7 +143,7 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[]){
             return;
         }
         else{
-                NodeT *p;
+               // NodeT *p;
                 NodeT *pParent;
                 //insertion at the tree handled
                 //now normal insert
@@ -160,15 +160,15 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[]){
                     pParent = findId(tree->pRoot,szParentId);
                     //this if statement handles value into value
                     if(pParent->element.cNodeType == 'V' && element.cNodeType == 'V'){
-                        printf("inserting into a value");
+                        printf("\tCan't insert a value into a value!\n\t");
                     return;
                     }
-                    p = insertT(&pParent->pChild,element);
+                    insertT(&pParent->pChild,element);
                 }
                 else{
                    // ErrExit(ERR_DATA, "Option trying to be inserted at wrong place, wrong parent ID from Input.");
-                     printf("OOOPS NO PARENT FOUND\n\tcan't insert that");
-                        printf("\n\t");
+                     printf("OOOPS NO PARENT FOUND. Can't insert that");
+                        printf("\n");
               return;
 
 
@@ -249,7 +249,38 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
         printOne(tree,szId);
     }
 }
-/*********************commandCommand**********************************
+void commandQuote(Tree tree,QuoteSelection quote , char *szRemainingTxt){
+    char szsubComandType[16];
+    char * pszRemainingTxt;
+
+    //get subcommand
+    pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
+    // continue through line of  input
+    strcpy(szRemainingTxt, pszRemainingTxt);
+
+
+    if (strcmp(szsubComandType, "BEGIN") == 0)
+    {   //quote has begun
+
+        printf("BEING\n");
+
+    }
+    if (strcmp(szsubComandType, "OPTION") == 0)
+    {
+        printf("OPTION\n");
+
+    }
+
+       if (strcmp(szsubComandType, "END") == 0)
+    {
+        printf("END\n");
+    }
+
+
+
+
+}
+/*********************processCommand**********************************
   void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])
 purpose:
 the function is called after a command DEFINE has been initiated.
@@ -286,11 +317,12 @@ void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]){
         if(strcmp(szCommandType, "PRINT") == 0){
             commandPrint(tree, quote,szRemainingTxt);
         }
-    if(strcmp(szCommandType, "DELETE") == 0){
+        if(strcmp(szCommandType, "DELETE") == 0){
         commandDelete(tree, quote , szRemainingTxt);
-    }
-    if(strcmp(szCommandType, "QUOTE") == 0){
-    }
+        }
+        if(strcmp(szCommandType, "QUOTE") == 0){
+        commandQuote(tree, quote , szRemainingTxt);
+        }
 }
 /*********************freeSubTree*****************************
   void freeTree(NodeT*p)
