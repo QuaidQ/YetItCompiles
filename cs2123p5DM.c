@@ -266,7 +266,9 @@ void commandQuote(Tree tree,QuoteSelection quote , char *szRemainingTxt){
     {
         if(QuoteBegun != TRUE)
             return;
-        printf("OPTION\n");
+
+        commandOption(tree , quote, szRemainingTxt);
+
 
     }
 
@@ -297,6 +299,14 @@ Notes:
 
  *************************************************************************/
 
+void commandOption(Tree tree ,QuoteSelection quote, char *szRemainingTxt){
+     printf("OPTION\n");
+
+
+
+
+
+}
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]){
 
         char szCommandType[16];
