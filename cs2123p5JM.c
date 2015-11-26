@@ -174,21 +174,19 @@ NodeT *findPredSibling(NodeT *p, NodeT *pSiblingNode)
     pFound = findPredSibling(p->pSibling, pSiblingNode);
     return pFound;
 }
-/******************** getDCost ****************************************
- void getDCost(Tree tree, char szId[], int iSelection, double *dCost)
+/******************** getOption ****************************************
+ NodeT *getOption(Tree tree, char szId[], int iSelection)
 
- Purpose: finds the cost of the node in the tree and returns the cost to
- be placed into the item.
+ Purpose: searches for an option node, and returns a pointer to it if it's
+    found.
 
  Parameters:
  I      Tree tree               The tree that will be searched
  I      char szId[]             The parent optionId
  I      int iSelection          Identifier of child or sibling
- I/O    double *dCost           Cost of item
- I/O    char *OptionsSzId
- Returns:
- dCost                          Cost of item, if there is a cost
 
+ Returns:
+ pOption                        The option node, if found
  **************************************************************************/
 NodeT *getOption(Tree tree, char szId[], int iSelection)
 {
