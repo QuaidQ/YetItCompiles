@@ -23,8 +23,7 @@ Notes:
 
  *************************************************************************/
 void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
-{
-    //get second command to see if its Option or value
+{    //get second command to see if its Option or value
     char szsubComandType[16];
         char *pszRemainingTxt;
         //items to be read into the element
@@ -261,12 +260,12 @@ void commandQuote(Tree tree,QuoteSelection quote , char *szRemainingTxt){
 
     if (strcmp(szsubComandType, "BEGIN") == 0)
     {   //quote has begun
-
-        printf("BEING\n");
-
+        QuoteBegun = TRUE;
     }
     if (strcmp(szsubComandType, "OPTION") == 0)
     {
+        if(QuoteBegun != TRUE)
+            return;
         printf("OPTION\n");
 
     }

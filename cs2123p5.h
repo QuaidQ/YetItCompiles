@@ -42,7 +42,7 @@ Notes:
 #define FALSE 0
 
 // Quote Result Code values
-#define QUOTE_BEGUN
+int QuoteBegun;
 #define QUOTE_NORMAL        0    // Quote had no errors and is complete
 #define QUOTE_PARTIAL       1    // Quote had mising options (see error for more information)
 #define QUOTE_BAD_OPTION    2    // Quote had a bad option (see error for more information)

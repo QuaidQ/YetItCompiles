@@ -96,6 +96,7 @@ Notes:
 
 int main()
 {
+    QuoteBegun = FALSE;
     Tree tree = newTree();                          // Binary tree
     char szInputBuffer[MAX_LINE_SIZE + 1];          // input text line
 
