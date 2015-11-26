@@ -159,8 +159,8 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void stripNewline( char *str, int size);
 void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
-void commandQuote(Tree tree, QuoteSelection quote , char *szRemainingTxt);
-void commandOption(Tree tree ,QuoteSelection quote, char *szRemainingTxt);
+void commandQuote(Tree tree, QuoteSelection quote , char szRemainingTxt[]);
+void commandOption(Tree tree ,QuoteSelection quote, char szRemainingTxt[]);
 // Some functions provided by Larry
 Tree newTree();
 QuoteSelection newQuoteSelection();

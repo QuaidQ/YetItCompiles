@@ -248,7 +248,8 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
         printOne(tree,szId);
     }
 }
-void commandQuote(Tree tree,QuoteSelection quote , char *szRemainingTxt){
+void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
+
     char szsubComandType[16];
     char * pszRemainingTxt;
 
@@ -266,7 +267,6 @@ void commandQuote(Tree tree,QuoteSelection quote , char *szRemainingTxt){
     {
         if(QuoteBegun != TRUE)
             return;
-
         commandOption(tree , quote, szRemainingTxt);
 
 
@@ -299,9 +299,15 @@ Notes:
 
  *************************************************************************/
 
-void commandOption(Tree tree ,QuoteSelection quote, char *szRemainingTxt){
+void commandOption(Tree tree ,QuoteSelection quote, char szRemainingTxt[]){
      printf("OPTION\n");
+    char szsubComandType[16];
+    char * pszRemainingTxt;
 
+    //get subcommand
+    pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
+    // continue through line of  input
+    strcpy(szRemainingTxt, pszRemainingTxt);
 
 
 
