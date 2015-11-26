@@ -24,7 +24,7 @@ Notes:
  *************************************************************************/
 void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
 {    //get second command to see if its Option or value
-    char szsubComandType[16];
+        char szsubComandType[16];
         char *pszRemainingTxt;
         //items to be read into the element
         char parentsNodesID[16] = "";
@@ -59,7 +59,7 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
         }
         else if(strcmp(szsubComandType, "VALUE") == 0)
         {
-            element.cNodeType = 'V';
+                element.cNodeType = 'V';
                 element.cCostInd = 'Y';
 
                 //getID of node
@@ -267,7 +267,7 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
     {
         if(QuoteBegun != TRUE)
             return;
-        commandOption(tree , quote, szRemainingTxt);
+        createItem(tree , quote, szRemainingTxt);
 
 
     }
@@ -277,6 +277,48 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
         printf("END\n");
     }
 
+
+
+
+}
+
+
+void createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[]){
+    printf("OPTION\n");
+
+    char sziLevel[16];
+    //char cszOptionID[MAX_ID_SIZE+1];
+    char sziSelection[16];
+    char * pszRemainingTxt;
+
+    QuoteSelectionItem Item;
+    //add item
+    quote->iQuoteItemCnt = quote->iQuoteItemCnt + 1;
+    //get iLevel token
+    pszRemainingTxt = getToken(szRemainingTxt, sziLevel,sizeof(sziLevel)-1);
+    // continue through line of  input
+    strcpy(szRemainingTxt, pszRemainingTxt);
+
+    //get iLevel token
+    pszRemainingTxt = getToken(szRemainingTxt, Item.szOptionId,sizeof(Item.szOptionId)-1);
+    // continue through line of  input
+    strcpy(szRemainingTxt, pszRemainingTxt);
+    //get iLevel token
+    pszRemainingTxt = getToken(szRemainingTxt, sziSelection,sizeof(sziSelection)-1);
+    // continue through line of  input
+    strcpy(szRemainingTxt, pszRemainingTxt);
+
+    //sscanf(costValue, "%d" , &element.dCost);
+    sscanf(sziLevel, "%d", &Item.iLevel);
+    sscanf(sziSelection, "%d", &Item.iSelection);
+    //call dCost
+    getDCost(tree, Item.szOptionId, Item.iSelection, &Item.dCost);
+
+    printf("count in array is %d\n", quote->iQuoteItemCnt);
+    printf("Item's iLevel:\t %d\n", Item.iLevel);
+    printf("Item's szOptionId:\t %s\n", Item.szOptionId);
+    printf("Item's iSelection:\t %d\n", Item.iSelection);
+    printf("Item's dCost:\t %.2f\n", Item.dCost);
 
 
 
@@ -298,21 +340,6 @@ N/A
 Notes:
 
  *************************************************************************/
-
-void commandOption(Tree tree ,QuoteSelection quote, char szRemainingTxt[]){
-     printf("OPTION\n");
-    char szsubComandType[16];
-    char * pszRemainingTxt;
-
-    //get subcommand
-    pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
-    // continue through line of  input
-    strcpy(szRemainingTxt, pszRemainingTxt);
-
-
-
-
-}
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]){
 
         char szCommandType[16];

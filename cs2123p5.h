@@ -152,7 +152,7 @@ void deleteItem(Tree tree, char szId[]);
 NodeT *insertT(NodeT **pp, Element element);
 NodeT *allocateNodeT(Element element);
 NodeT *findPredSibling(NodeT *p, NodeT *pPredSibling);
-
+void getDCost(Tree tree, char szId[], int iSelection, double *dCost);
 // Driver function to process a input data line.  Groups must write this function
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
 void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
@@ -160,7 +160,7 @@ void stripNewline( char *str, int size);
 void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
 void commandQuote(Tree tree, QuoteSelection quote , char szRemainingTxt[]);
-void commandOption(Tree tree ,QuoteSelection quote, char szRemainingTxt[]);
+void createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[]);
 // Some functions provided by Larry
 Tree newTree();
 QuoteSelection newQuoteSelection();

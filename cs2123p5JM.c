@@ -187,9 +187,8 @@ NodeT *findPredSibling(NodeT *p, NodeT *pSiblingNode)
  Notes:
 
  **************************************************************************/
-double getDCost(Tree tree, char szId[], int iSelection)
+void getDCost(Tree tree, char szId[], int iSelection, double *dCost)
 {
-    double dCost;
     NodeT *p;
     int i;
 
@@ -197,12 +196,12 @@ double getDCost(Tree tree, char szId[], int iSelection)
 
     //return if called with invalid szId or an iSelection less than 1
     if (p == NULL || p->pChild == NULL || iSelection < 1)
-        return NULL;
+        return;
 
     if (iSelection == 1)
     {
-        dCost = p->pChild->element.dCost;
-        return dCost;
+        *dCost = p->pChild->element.dCost;
+        return;
     }
 
     //if iSelection is 1 or more, start traversing child siblings
@@ -213,10 +212,10 @@ double getDCost(Tree tree, char szId[], int iSelection)
             p = p->pSibling;
 
             if (p == NULL)
-                return NULL;
+                return;
 
-            dCost = p->element.dCost;
+            *dCost = p->element.dCost;
         }
 
-    return NULL;
+    return;
 }
