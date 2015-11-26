@@ -173,3 +173,50 @@ NodeT *findPredSibling(NodeT *p, NodeT *pSiblingNode)
     pFound = findPredSibling(p->pSibling, pSiblingNode);
     return pFound;
 }
+/******************** getDCost ****************************************
+
+ Purpose: finds the cost of the node in the tree and returns the cost to
+ be placed into the item.
+
+ Parameters:
+
+
+ Returns:
+
+
+ Notes:
+
+ **************************************************************************/
+double getDCost(Tree tree, char szId[], int iSelection)
+{
+    double dCost;
+    NodeT *p;
+    int i;
+
+    p = findId(tree->pRoot, szId);
+
+    //return if called with invalid szId or an iSelection less than 1
+    if (p == NULL || p->pChild == NULL || iSelection < 1)
+        return NULL;
+
+    if (iSelection == 1)
+    {
+        dCost = p->pChild->element.dCost;
+        return dCost;
+    }
+
+    //if iSelection is 1 or more, start traversing child siblings
+    p = p->pChild;
+
+        for(i=2; i<=iSelection; i++)
+        {
+            p = p->pSibling;
+
+            if (p == NULL)
+                return NULL;
+
+            dCost = p->element.dCost;
+        }
+
+    return NULL;
+}
