@@ -247,31 +247,42 @@ void printQuoteDetails(Tree tree, QuoteSelection quote) {
                 pkid = p->pSibling;
             }
         }
-//        printf("%s\n", pParent->element.szTitle);
+        //printf("%s\n", pParent->element.szTitle);
 
         // printf("");
         if (pParent->element.cCostInd == 'N') {
-            printf("%-30s\n", pParent->element.szTitle);
-            // if it does have a value print both item title and its cost
-            for (j = 0; j <= quote->quoteItemM[i].iLevel; j++) {
-                printf("   ");
-            }
-        }
-        else {
-            printf("%-30s%-8.2lf\n", pParent->element.szTitle, pParent->element.dCost);
-            for (j = 0; j <= quote->quoteItemM[i].iLevel; j++) {
-                printf("   ");
-            }
-        }
+           if(quote->quoteItemM[i].iLevel == 0)
+                printf("\n");
+            if(quote->quoteItemM[i].iLevel == 1)
+                printf("      ");
+            if(quote->quoteItemM[i].iLevel == 2)
+                printf("         ");
 
-        if (pkid->element.cCostInd == 'n') {
+
+            printf("%-30s\n", pParent->element.szTitle);
+
+            // if it does have a value print both item title and its cost
+        }
+        for (j = 0; j <= quote->quoteItemM[i].iLevel; j++) {
+            printf("   ");
+        }
+        if (pkid->element.cCostInd == 'N') {
             printf("%-30s\n", pkid->element.szTitle);
+            printf("here");
 
         } else {
-            printf("%-30s%-8.2lf\n\t", pkid->element.szTitle, pkid->element.dCost);
-           
+            if(quote->quoteItemM[i].iLevel == 0)
+                printf("");
+            if(quote->quoteItemM[i].iLevel == 1)
+                printf("      ");
+            if(quote->quoteItemM[i].iLevel == 2)
+                printf("         ");
+            printf("%-30s%-8.2lf\n", pkid->element.szTitle, pkid->element.dCost);
+
+            }
         }
-             }
+        printf("\n");
+
         printf("Total cost: %40.2lf\n", qResult.dTotalCost);
         printf("*****************END PRINT QUOTE DETAILS*************************\n");
 
