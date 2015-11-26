@@ -220,3 +220,20 @@ NodeT *getOption(Tree tree, char szId[], int iSelection)
 
     return pOption;
 }
+void printQuoteDetails(QuoteSelection quote)
+{
+    int i;
+
+    for(i=0; i<quote->iQuoteItemCnt; i++)
+    {
+        printf("BEGIN PRINT QUOTE DETAILS FUNCTION:");
+        printf("Item's iLevel:\t %d\n", quote->quoteItemM[i].iLevel);
+        printf("Item's szOptionId:\t %s\n", quote->quoteItemM[i].szOptionId);
+        printf("Item's iSelection:\t %d\n", quote->quoteItemM[i].iSelection);
+        printf("Item's szOptionId:\t %s\n", quote->quoteItemM[i].szOptionId);
+        printf("Item's szTitle:\t %s\n", quote->quoteItemM[i].szTitle);
+        printf("Item's dCost:\t %.2f\n", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
+        printf("count in array is %d\n", quote->iQuoteItemCnt);
+        printf("Total cost: %.2f\n", qResult.dTotalCost);
+    }
+}

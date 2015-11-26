@@ -299,10 +299,11 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
     }
 
 }
-QuoteResult determineQuote(Tree tree, QuoteSelection quoteSelection){
+QuoteResult determineQuote(Tree tree, QuoteSelection quote){
 
 //print shit justin!
 //call your print function here
+ printQuoteDetails(quote);
 
 return qResult;
 }
