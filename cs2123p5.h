@@ -157,7 +157,7 @@ NodeT *insertT(NodeT **pp, Element element);
 NodeT *allocateNodeT(Element element);
 NodeT *findPredSibling(NodeT *p, NodeT *pPredSibling);
 NodeT *getOption(Tree tree, char szId[], int iSelection);
-void printQuoteDetails(QuoteSelection quote);
+void printQuoteDetails(Tree tree,QuoteSelection quote);
 // Driver function to process a input data line.  Groups must write this function
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
 void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);

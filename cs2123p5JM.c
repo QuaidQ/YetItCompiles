@@ -220,20 +220,62 @@ NodeT *getOption(Tree tree, char szId[], int iSelection)
 
     return pOption;
 }
-void printQuoteDetails(QuoteSelection quote)
-{
-    int i;
+void printQuoteDetails(Tree tree, QuoteSelection quote) {
 
-    for(i=0; i<quote->iQuoteItemCnt; i++)
-    {
-        printf("BEGIN PRINT QUOTE DETAILS FUNCTION:");
-        printf("Item's iLevel:\t %d\n", quote->quoteItemM[i].iLevel);
-        printf("Item's szOptionId:\t %s\n", quote->quoteItemM[i].szOptionId);
-        printf("Item's iSelection:\t %d\n", quote->quoteItemM[i].iSelection);
-        printf("Item's szOptionId:\t %s\n", quote->quoteItemM[i].szOptionId);
-        printf("Item's szTitle:\t %s\n", quote->quoteItemM[i].szTitle);
-        printf("Item's dCost:\t %.2f\n", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
-        printf("count in array is %d\n", quote->iQuoteItemCnt);
-        printf("Total cost: %.2f\n", qResult.dTotalCost);
-    }
+    printf("*****************BEGIN PRINT QUOTE DETAILS*************************\n");
+    int i;
+    int j;
+    int k;
+    int iSelect;
+    NodeT *pkid;
+    NodeT *pParent, *p;
+
+    for (i = 0; i < quote->iQuoteItemCnt; i++) {
+        pParent = findId(tree->pRoot, quote->quoteItemM[i].szOptionId);
+        //find the selection
+        iSelect = quote->quoteItemM[i].iSelection;
+
+        //       printf("iselect is %d\n", iSelect);
+
+        if (iSelect == 1) {
+            pkid = pParent->pChild;
+        }
+        else {
+            p = pParent->pChild;
+
+            for (k = 0; k < iSelect; k++) {
+                pkid = p->pSibling;
+            }
+        }
+//        printf("%s\n", pParent->element.szTitle);
+
+        // printf("");
+        if (pParent->element.cCostInd == 'N') {
+            printf("%-30s\n", pParent->element.szTitle);
+            // if it does have a value print both item title and its cost
+            for (j = 0; j <= quote->quoteItemM[i].iLevel; j++) {
+                printf("   ");
+            }
+        }
+        else {
+            printf("%-30s%-8.2lf\n", pParent->element.szTitle, pParent->element.dCost);
+            for (j = 0; j <= quote->quoteItemM[i].iLevel; j++) {
+                printf("   ");
+            }
+        }
+
+        if (pkid->element.cCostInd == 'n') {
+            printf("%-30s\n", pkid->element.szTitle);
+            for (j = 0; j <= quote->quoteItemM[i].iLevel; j++) {
+                printf("   ");
+            }
+        } else {
+            printf("%-30s%-8.2lf\n\t", pkid->element.szTitle, pkid->element.dCost);
+           
+        }
+             }
+        printf("Total cost: %40.2lf\n", qResult.dTotalCost);
+        printf("*****************END PRINT QUOTE DETAILS*************************\n");
+
+
 }

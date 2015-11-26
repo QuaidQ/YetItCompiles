@@ -303,7 +303,7 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote){
 
 //print shit justin!
 //call your print function here
- printQuoteDetails(quote);
+ printQuoteDetails(tree, quote);
 
 return qResult;
 }
