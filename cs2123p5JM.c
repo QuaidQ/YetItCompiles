@@ -134,6 +134,7 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
 }
 /******************** findPredSibling ****************************************
  NodeT *findPredSibling(NodeT *p, NodeT *pPredSibling)
+
  Purpose: Finds and returns a pointer to a node that has pSiblingNode
           as it's sibling (the predecessor sibling node).
 
@@ -174,20 +175,22 @@ NodeT *findPredSibling(NodeT *p, NodeT *pSiblingNode)
     return pFound;
 }
 /******************** getDCost ****************************************
+ void getDCost(Tree tree, char szId[], int iSelection, double *dCost)
 
  Purpose: finds the cost of the node in the tree and returns the cost to
  be placed into the item.
 
  Parameters:
-
-
+ I      Tree tree               The tree that will be searched
+ I      char szId[]             The parent optionId
+ I      int iSelection          Identifier of child or sibling
+ I/O    double *dCost           Cost of item
+ I/O    char *OptionsSzId
  Returns:
-
-
- Notes:
+ dCost                          Cost of item, if there is a cost
 
  **************************************************************************/
-void getDCost(Tree tree, char szId[], int iSelection, double *dCost)
+NodeT *getOption(Tree tree, char szId[], int iSelection, NodeT *pOption)
 {
     NodeT *p;
     int i;
@@ -196,26 +199,26 @@ void getDCost(Tree tree, char szId[], int iSelection, double *dCost)
 
     //return if called with invalid szId or an iSelection less than 1
     if (p == NULL || p->pChild == NULL || iSelection < 1)
-        return;
+        return NULL;
 
     if (iSelection == 1)
     {
-        *dCost = p->pChild->element.dCost;
-        return;
+        pOption = p->pChild;
+        return pOption;
     }
 
     //if iSelection is 1 or more, start traversing child siblings
     p = p->pChild;
 
-        for(i=2; i<=iSelection; i++)
-        {
-            p = p->pSibling;
+    for(i=2; i<=iSelection; i++)
+    {
+        p = p->pSibling;
 
-            if (p == NULL)
-                return;
+        if (p == NULL)
+            return NULL;
 
-            *dCost = p->element.dCost;
-        }
+        pOption = p;
+    }
 
-    return;
+    return pOption;
 }
