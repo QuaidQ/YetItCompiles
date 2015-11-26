@@ -137,6 +137,7 @@ typedef struct
                                 // information about the first missing option.
 } QuoteResult;
 
+QuoteResult qResult;
 // Prototypes of functions you must write.  Many of these functions
 // require helper functions to do the real work.
 NodeT *findId(NodeT *p, char szId[]);
@@ -147,7 +148,7 @@ void prettyPrint(NodeT *p, int iIndent);
 void freeSubTree(NodeT *p);
 void freeTree(Tree tree);
 void insertPriceMenu(Tree tree, Element element, char szParentId[]);
-QuoteResult determineQuote(Tree tree, QuoteSelection quoteSelection);
+QuoteResult determineQuote(Tree tree, QuoteSelection quote);
 void deleteItem(Tree tree, char szId[]);
 
 

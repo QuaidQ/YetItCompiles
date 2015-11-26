@@ -105,7 +105,6 @@ int main()
     // scanf returns the number of successful inputs
     // Variables for Quote
     QuoteSelection quote = newQuoteSelection();
-
     // Read command lines until EOF
     while (fgets(szInputBuffer, MAX_LINE_SIZE, inputFile) != NULL)
     {

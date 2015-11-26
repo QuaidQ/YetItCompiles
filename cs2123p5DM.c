@@ -280,21 +280,32 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
 
 
        //add item
+       qResult.dTotalCost = qResult.dTotalCost + quote->quoteItemM[quote->iQuoteItemCnt].dCost;
+
        quote->iQuoteItemCnt = quote->iQuoteItemCnt + 1;
        printf("count in array is %d\n", quote->iQuoteItemCnt);
-   // printf("whats in the array? : %d ", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
+       printf("Total cost: %.2f\n", qResult.dTotalCost);
     }
 
        if (strcmp(szsubComandType, "END") == 0)
     {
+         if(QuoteBegun != TRUE)
+            return;
+        determineQuote(tree, quote);
+
         printf("END\n");
+
+
     }
 
-
-
-
 }
+QuoteResult determineQuote(Tree tree, QuoteSelection quoteSelection){
 
+//print shit justin!
+//call your print function here
+
+return qResult;
+}
 
 QuoteSelectionItem createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[]){
     printf("OPTION\n");
