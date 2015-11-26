@@ -104,7 +104,11 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
         return NULL;
 
     //return null if p does not have a valid szId
+<<<<<<< HEAD
     if (findId(p, pkid->element.szId) != NULL);
+=======
+    if (findId(p, pkid->element.szId) != NULL)
+>>>>>>> origin/master
     {
         //check to see if we've found the matching parent
         if (p == pkid)

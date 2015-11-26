@@ -84,13 +84,23 @@ void printOne(Tree tree, char szId[])
     NodeT *p;
     p = findId(tree->pRoot, szId);
 
-    if (p == NULL){
-//         ErrExit(ERR_DATA, "ERROR ID %s NOT FOUND\n", szId);
-      printf("ERROR ID %s NOT FOUND\n", szId);
-    }    else if (p->element.cCostInd == 'N')
-        printf("Title: %-30s\n", p->element.szTitle);
+    if (p == NULL)
+<<<<<<< HEAD:cs2123QQprint.c
+        printf("ERROR ID %s NOT FOUND\n", szId);
+    else{
+            if (p->element.cCostInd == 'N')
+        printf("%s\n", p->element.szTitle);
     // if it does have a value print both item title and its cost
     else
+        printf("%s %.2lf\n", p->element.szTitle, p->element.dCost);
 
+}
+
+
+=======
+//         ErrExit(ERR_DATA, "ERROR ID %s NOT FOUND\n", szId);
+      printf("ERROR ID %s NOT FOUND\n", szId); 
+       else
         printf("Title: %s\n Cost: %.2lf\n", p->element.szTitle, p->element.dCost);
+>>>>>>> origin/master:cs2123p5QQ.c
 }

@@ -116,4 +116,4 @@ PRINT ALL
 DELETE color_oy
 PRINT ALL
 *
-PRINT ONE color_oy
+PRINT ONE color_oy
