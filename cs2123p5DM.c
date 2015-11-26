@@ -267,9 +267,8 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
     {
         if(QuoteBegun != TRUE)
             return;
-        createItem(tree , quote, szRemainingTxt);
-
-
+       createItem(tree , quote, szRemainingTxt);
+   // printf("whats in the array? : %d ", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
     }
 
        if (strcmp(szsubComandType, "END") == 0)
@@ -286,11 +285,13 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
 void createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[]){
     printf("OPTION\n");
 
+
     char sziLevel[16];
     //char cszOptionID[MAX_ID_SIZE+1];
     char sziSelection[16];
     char * pszRemainingTxt;
 
+    NodeT * p;
     QuoteSelectionItem Item;
     //add item
     quote->iQuoteItemCnt = quote->iQuoteItemCnt + 1;
@@ -312,16 +313,21 @@ void createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[]){
     sscanf(sziLevel, "%d", &Item.iLevel);
     sscanf(sziSelection, "%d", &Item.iSelection);
     //call dCost
-    getDCost(tree, Item.szOptionId, Item.iSelection, &Item.dCost);
+    p = getOption(tree, Item.szOptionId, Item.iSelection);
+
+    //Item.szId = *p->element.szId;
+     strcpy(Item.szTitle , p->element.szTitle);
+    Item.dCost= p->element.dCost;
 
     printf("count in array is %d\n", quote->iQuoteItemCnt);
     printf("Item's iLevel:\t %d\n", Item.iLevel);
     printf("Item's szOptionId:\t %s\n", Item.szOptionId);
     printf("Item's iSelection:\t %d\n", Item.iSelection);
+    printf("Item's szOptionId:\t %s\n", Item.szOptionId);printf("Item's szTitle:\t %s\n", Item.szTitle);
     printf("Item's dCost:\t %.2f\n", Item.dCost);
 
 
-
+return;
 }
 /*********************processCommand**********************************
   void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])

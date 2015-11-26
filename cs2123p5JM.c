@@ -190,9 +190,9 @@ NodeT *findPredSibling(NodeT *p, NodeT *pSiblingNode)
  dCost                          Cost of item, if there is a cost
 
  **************************************************************************/
-NodeT *getOption(Tree tree, char szId[], int iSelection, NodeT *pOption)
+NodeT *getOption(Tree tree, char szId[], int iSelection)
 {
-    NodeT *p;
+    NodeT *p, *pOption;
     int i;
 
     p = findId(tree->pRoot, szId);

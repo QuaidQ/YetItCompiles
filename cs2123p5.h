@@ -111,6 +111,9 @@ typedef struct
     char   szOptionId[MAX_ID_SIZE+1];   // Option ID  (this is not the
                                         // ID for an option value)
     int    iSelection;                  // Selection index (relative to 1)
+
+    char   szTitle[MAX_ID_SIZE+1];          //actual name of item
+
     double  dCost;                      // Cost of this selected item
 } QuoteSelectionItem;
 
@@ -152,7 +155,7 @@ void deleteItem(Tree tree, char szId[]);
 NodeT *insertT(NodeT **pp, Element element);
 NodeT *allocateNodeT(Element element);
 NodeT *findPredSibling(NodeT *p, NodeT *pPredSibling);
-void getDCost(Tree tree, char szId[], int iSelection, double *dCost);
+NodeT *getOption(Tree tree, char szId[], int iSelection);
 // Driver function to process a input data line.  Groups must write this function
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
 void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
