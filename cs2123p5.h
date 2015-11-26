@@ -42,6 +42,7 @@ Notes:
 #define FALSE 0
 
 // Quote Result Code values
+#define QUOTE_BEGUN
 #define QUOTE_NORMAL        0    // Quote had no errors and is complete
 #define QUOTE_PARTIAL       1    // Quote had mising options (see error for more information)
 #define QUOTE_BAD_OPTION    2    // Quote had a bad option (see error for more information)
@@ -158,6 +159,7 @@ void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void stripNewline( char *str, int size);
 void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
+void commandQuote(Tree tree, QuoteSelection quote , char *szRemainingTxt);
 // Some functions provided by Larry
 Tree newTree();
 QuoteSelection newQuoteSelection();
