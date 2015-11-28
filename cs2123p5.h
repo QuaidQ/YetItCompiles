@@ -58,7 +58,6 @@ int QuoteBegun;
 #define USAGE_ERR           -1     // usage error, show message and usage information
 
 /*** typedefs ***/
-int filledQuote[MAX_QUOTE_ITEM+ 1];
 typedef char Token[MAX_TOKEN_SIZE + 1];     // token type to help with parsing
 
 // typedefs for the binary tree
@@ -138,6 +137,23 @@ typedef struct
 } QuoteResult;
 
 QuoteResult qResult;
+typedef struct
+{
+    char   szOptionId[MAX_ID_SIZE+1];       // id of option choice
+
+    int    maxLevel;                        // max number of levels
+
+    int    iSelection;                      // max number of selections
+
+    int    iFound;                          // check to see if found in quote selection
+} QuoteCheckItem;
+
+typedef struct {
+    int iQuoteItemCnt;                  // Number of items in quoteCheckItemM
+    QuoteCheckItem quoteCheckItemM[MAX_QUOTE_ITEM + 1];
+}QuoteCheckImp;
+typedef QuoteCheckImp *QuoteCheck;
+
 // Prototypes of functions you must write.  Many of these functions
 // require helper functions to do the real work.
 NodeT *findId(NodeT *p, char szId[]);
@@ -166,6 +182,8 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
 void commandQuote(Tree tree, QuoteSelection quote , char szRemainingTxt[]);
 QuoteSelectionItem createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[]);
+void patialQuoteCheck(Tree tree, QuoteSelection quote);
+QuoteCheck newQuoteCheck();
 // Some functions provided by Larry
 Tree newTree();
 QuoteSelection newQuoteSelection();

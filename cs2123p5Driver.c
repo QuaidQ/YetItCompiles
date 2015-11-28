@@ -105,6 +105,7 @@ int main()
     // scanf returns the number of successful inputs
     // Variables for Quote
     QuoteSelection quote = newQuoteSelection();
+
     // Read command lines until EOF
     while (fgets(szInputBuffer, MAX_LINE_SIZE, inputFile) != NULL)
     {
@@ -185,6 +186,7 @@ QuoteSelection newQuoteSelection()
         ErrExit(ERR_ALGORITHM, "malloc allocation error for QuoteSelectionImp");
     quote->iQuoteItemCnt = 0;
     return quote;
+
 }
 
 /***  U T I L I T Y functions ***/

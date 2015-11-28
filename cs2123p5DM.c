@@ -120,7 +120,8 @@ Notes:
 handles diffrent types of inserting errors that user might place
  ************************************************************************/
 
-void insertPriceMenu(Tree tree, Element element, char szParentId[]){
+void insertPriceMenu(Tree tree, Element element, char szParentId[])
+{
     //here we handle if the root is empty so we insert
     //to go down the list of roots sibilings until it hits null
     //and inserts
@@ -190,7 +191,8 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[]){
  Notes:
 
  *************************************************************************/
-void commandDelete(Tree tree, QuoteSelection quote, char szId[]){
+void commandDelete(Tree tree, QuoteSelection quote, char szId[])
+{
     //      printf("Command DELETE processed. Item to be deleted: %s\n" ,szId );
     /******************************************
      * call Delete here                       *
@@ -248,7 +250,8 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
         printOne(tree,szId);
     }
 }
-void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
+void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
+{
 
     char szsubComandType[16];
     char * pszRemainingTxt;
@@ -299,16 +302,19 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[]){
     }
 
 }
-QuoteResult determineQuote(Tree tree, QuoteSelection quote){
+QuoteResult determineQuote(Tree tree, QuoteSelection quote)
+{
 
-//print shit justin!
-//call your print function here
- printQuoteDetails(tree, quote);
+    //print shit justin!
+    //call your print function here
+    printQuoteDetails(tree, quote);
+    patialQuoteCheck(tree,quote);
 
 return qResult;
 }
 
-QuoteSelectionItem createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[]){
+QuoteSelectionItem createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[])
+{
     printf("OPTION\n");
 
 
@@ -363,7 +369,8 @@ N/A
 Notes:
 
  *************************************************************************/
-void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]){
+void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])
+{
 
         char szCommandType[16];
         char *pszRemainingTxt;
@@ -401,7 +408,8 @@ Returns:
 N/A
 Notes:
  *************************************************************************/
-void freeTree(Tree tree){
+void freeTree(Tree tree)
+{
    freeSubTree(tree->pRoot);
    tree->pRoot = NULL;
     return;
@@ -452,7 +460,8 @@ void stripNewline( char *str, int size)
             }
         }
 }
-void printQuoteDetails(Tree tree, QuoteSelection quote) {
+void printQuoteDetails(Tree tree, QuoteSelection quote)
+{
 
     printf("*****************BEGIN PRINT QUOTE DETAILS*************************\n");
     int i;
@@ -519,4 +528,43 @@ void printQuoteDetails(Tree tree, QuoteSelection quote) {
     printf("*****************END PRINT QUOTE DETAILS*************************\n");
 
 
+}
+void patialQuoteCheck(Tree tree, QuoteSelection quote)
+{
+
+    QuoteCheck quoteCheck = newQuoteCheck();
+
+    //find out how many 0 ilevels are in the quote array
+    int i;
+    //for each zero, find the childs and siblings it has
+    // and store that into the quoteCheck array.
+    //memset all ifound selections to 0
+    //look through quote array and mark what options are there.
+    // if the array has  0 and no followed 1 its incomplete,
+    //if the array has a 0 and is followed by 1's i
+
+
+
+}
+
+/******************** newQuoteCheck **************************************
+  QuoteSelection newQuoteCheck()
+Purpose:
+Allocates memory for a QuoteCheckImp and initializes it.
+Parameters:
+n/a
+Notes:
+- Checks for malloc memory allocation error.
+Returns:
+Returns a QuoteCheck.  Note that a QuoteCheck is simply a pointer to
+a QuoteCheckImp.
+ **************************************************************************/
+QuoteCheck newQuoteCheck()
+{
+    QuoteCheck  quoteCheck = (QuoteCheck)malloc(sizeof(QuoteCheckImp));
+
+    if (quoteCheck == NULL)
+        ErrExit(ERR_ALGORITHM, "malloc allocation error for QuoteCheckImp");
+    quoteCheck->iQuoteItemCnt = 0;
+    return quoteCheck;
 }
