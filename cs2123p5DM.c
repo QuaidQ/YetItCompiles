@@ -265,6 +265,7 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
     if (strcmp(szsubComandType, "BEGIN") == 0)
     {   //quote has begun
         QuoteBegun = TRUE;
+        QuoteSelection quote = newQuoteSelection();
     }
     if (strcmp(szsubComandType, "OPTION") == 0)
     {
@@ -272,12 +273,11 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
             return;
 
 
-       quote->quoteItemM[quote->iQuoteItemCnt] = createItem(tree , quote, szRemainingTxt);
+       quote->quoteItemM[quote->iQuoteItemCnt] = createItem(tree , szRemainingTxt);
 
         printf("Item's iLevel:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iLevel);
         printf("Item's szOptionId:\t %s\n", quote->quoteItemM[quote->iQuoteItemCnt].szOptionId);
         printf("Item's iSelection:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iSelection);
-        printf("Item's szOptionId:\t %s\n",quote->quoteItemM[quote->iQuoteItemCnt].szOptionId);
         printf("Item's szTitle:\t %s\n",quote->quoteItemM[quote->iQuoteItemCnt].szTitle);
         printf("Item's dCost:\t %.2f\n", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
 
@@ -294,9 +294,12 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
     {
          if(QuoteBegun != TRUE)
             return;
+
         determineQuote(tree, quote);
 
         printf("END\n");
+
+        qResult.dTotalCost =0.0;
 
 
     }
@@ -308,12 +311,17 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
     //print shit justin!
     //call your print function here
     printQuoteDetails(tree, quote);
+
     patialQuoteCheck(tree,quote);
 
-return qResult;
+    printf("Total cost: %40.2lf\n", qResult.dTotalCost);
+    printf("*****************END PRINT QUOTE DETAILS*************************\n");
+
+    free(quote);
+    return qResult;
 }
 
-QuoteSelectionItem createItem(Tree tree ,QuoteSelection quote, char szRemainingTxt[])
+QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
 {
     printf("OPTION\n");
 
@@ -476,7 +484,7 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
         //find the selection
         iSelect = quote->quoteItemM[i].iSelection;
 
-        //       printf("iselect is %d\n", iSelect);
+            printf("iselect is %d\n", iSelect);
 
         if (iSelect == 1) {
             pkid = pParent->pChild;
@@ -485,7 +493,9 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
             p = pParent->pChild;
 
             for (k = 0; k < iSelect; k++) {
-                pkid = p->pSibling;
+                pkid = p;
+                p = p->pSibling;
+
             }
         }
         //printf("%s\n", pParent->element.szTitle);
@@ -518,14 +528,14 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
                 printf("      ");
             if(quote->quoteItemM[i].iLevel == 2)
                 printf("         ");
+
             printf("%-30s%-8.2lf\n", pkid->element.szTitle, pkid->element.dCost);
 
         }
+
     }
     printf("\n");
-
-    printf("Total cost: %40.2lf\n", qResult.dTotalCost);
-    printf("*****************END PRINT QUOTE DETAILS*************************\n");
+    return;
 
 
 }

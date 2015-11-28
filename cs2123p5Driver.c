@@ -113,7 +113,7 @@ int main()
         // If the line is just a comment or empty, ignore it
         if (szInputBuffer[0] == '*'  || szInputBuffer[0] == '\0')
             continue;                               // Command is a comment so skip it
-        //printf("Command Obtained: %s \n\t", szInputBuffer);
+        printf("Command Obtained: %s \n\t", szInputBuffer);
             processCommand(tree, quote, szInputBuffer);
     }
 

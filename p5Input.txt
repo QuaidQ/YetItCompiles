@@ -76,12 +76,12 @@ QUOTE END
 *
 ********************************* PARTIAL QUOTE ********
 *
-* QUOTE BEGIN
-* QUOTE OPTION 0 model 3
-* QUOTE OPTION 1 engine_oy 2
-* QUOTE OPTION 1 color_oy 2
-* QUOTE OPTION 0 warranty 3
-* QUOTE END
+QUOTE BEGIN
+QUOTE OPTION 0 model 3
+QUOTE OPTION 1 engine_oy 2
+QUOTE OPTION 1 color_oy 2
+QUOTE OPTION 0 warranty 3
+QUOTE END
 *
 ********************************* Bad Option ********
 *
