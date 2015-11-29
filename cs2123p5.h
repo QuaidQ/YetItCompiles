@@ -143,7 +143,7 @@ typedef struct
 
     int    maxLevel;                        // max number of levels
 
-    int    iSelection;                      // max number of selections
+    int    maxSelection;                      // max number of selections
 
     int    iFound;                          // check to see if found in quote selection
 } QuoteCheckItem;

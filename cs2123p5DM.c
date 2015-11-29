@@ -484,7 +484,7 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
         //find the selection
         iSelect = quote->quoteItemM[i].iSelection;
 
-            printf("iselect is %d\n", iSelect);
+            //printf("iselect is %d\n", iSelect);
 
         if (iSelect == 1) {
             pkid = pParent->pChild;
@@ -543,9 +543,30 @@ void patialQuoteCheck(Tree tree, QuoteSelection quote)
 {
 
     QuoteCheck quoteCheck = newQuoteCheck();
-
+    QuoteCheckItem checkForItem;
     //find out how many 0 ilevels are in the quote array
-    int i;
+    int i, iCount;
+    NodeT * p;
+    for(i=0; i < quote->iQuoteItemCnt; i++)
+    { if(quote->quoteItemM[i].iLevel == 0){
+            //item with level zero found
+            printf("item with level zero found: %s \n", quote->quoteItemM[i].szOptionId);
+            //find children and siblings of the child.
+            p = getOption(tree, quote->quoteItemM[i].szOptionId, quote->quoteItemM[i].iSelection);
+            printf("selecting : %s \n\t", p->element.szId);
+            //store all possible choices of p in the array.
+            p->pChild->element.szId;
+            //checkForItem.maxSelection = /** function that returns number of child and silbings pf p .**/
+            
+
+            //store into array
+
+            //quote->quoteItemM[quote->iQuoteItemCnt] = createItem(tree , szRemainingTxt);
+
+        }
+
+
+    }
     //for each zero, find the childs and siblings it has
     // and store that into the quoteCheck array.
     //memset all ifound selections to 0
