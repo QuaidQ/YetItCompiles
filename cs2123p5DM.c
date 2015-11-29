@@ -272,23 +272,26 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
         if(QuoteBegun != TRUE)
             return;
 
+        if(qResult.returnCode != QUOTE_BAD_OPTION) {
 
-       quote->quoteItemM[quote->iQuoteItemCnt] = createItem(tree , szRemainingTxt);
+            quote->quoteItemM[quote->iQuoteItemCnt] = createItem(tree, szRemainingTxt);
+            if(qResult.returnCode != QUOTE_BAD_OPTION) {
+                printf("Item's iLevel:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iLevel);
+                printf("Item's szOptionId:\t %s\n", quote->quoteItemM[quote->iQuoteItemCnt].szOptionId);
+                printf("Item's iSelection:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iSelection);
+                printf("Item's szTitle:\t %s\n", quote->quoteItemM[quote->iQuoteItemCnt].szTitle);
+                printf("Item's dCost:\t %.2f\n", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
 
-        printf("Item's iLevel:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iLevel);
-        printf("Item's szOptionId:\t %s\n", quote->quoteItemM[quote->iQuoteItemCnt].szOptionId);
-        printf("Item's iSelection:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iSelection);
-        printf("Item's szTitle:\t %s\n",quote->quoteItemM[quote->iQuoteItemCnt].szTitle);
-        printf("Item's dCost:\t %.2f\n", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
 
+                //add item
+                qResult.dTotalCost = qResult.dTotalCost + quote->quoteItemM[quote->iQuoteItemCnt].dCost;
 
-       //add item
-       qResult.dTotalCost = qResult.dTotalCost + quote->quoteItemM[quote->iQuoteItemCnt].dCost;
-
-       quote->iQuoteItemCnt = quote->iQuoteItemCnt + 1;
-       printf("count in array is %d\n", quote->iQuoteItemCnt);
-       printf("Total cost: %.2f\n", qResult.dTotalCost);
-    }
+                quote->iQuoteItemCnt = quote->iQuoteItemCnt + 1;
+                printf("count in array is %d\n", quote->iQuoteItemCnt);
+                printf("Total cost: %.2f\n", qResult.dTotalCost);
+            }
+        }
+        }
 
        if (strcmp(szsubComandType, "END") == 0)
     {
@@ -310,7 +313,10 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
 
     //print shit justin!
     //call your print function here
-    partialQuoteCheck(tree,quote);
+    //if its not valid no need to  check if partial
+   if(qResult.returnCode != QUOTE_BAD_OPTION )
+       partialQuoteCheck(tree,quote);
+
     printQuoteDetails(tree, quote);
 
     if(qResult.returnCode == QUOTE_NORMAL) {
@@ -323,12 +329,22 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
         printf("\t\t*** incomplete due to '%s' \n", qResult.error.szOptionId);
         printf("*****************END PRINT QUOTE DETAILS*************************\n");
     }
+
+    if(qResult.returnCode == QUOTE_BAD_OPTION) {
+        printf("\t\t*** invalid option '%s' \n", qResult.error.szOptionId);
+        printf("*****************END PRINT QUOTE DETAILS*************************\n");
+    }
+
     free(quote);
         return qResult;
 }
 
 QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
 {
+    if (qResult.returnCode == QUOTE_BAD_OPTION)
+        return;
+
+
     printf("OPTION\n");
 
 
@@ -358,14 +374,23 @@ QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
     sscanf(sziLevel, "%d", &Item.iLevel);
     sscanf(sziSelection, "%d", &Item.iSelection);
     //call dCost
-    p = getOption(tree, Item.szOptionId, Item.iSelection);
 
-    //Item.szId = *p->element.szId;
-    strcpy(Item.szTitle , p->element.szTitle);
-    Item.dCost= p->element.dCost;
+    if (findId(tree->pRoot, Item.szOptionId) == NULL) {
+        printf("item not found\n");
+        qResult.returnCode = QUOTE_BAD_OPTION;
+        strcpy(qResult.error.szOptionId,Item.szOptionId);
 
+    } else {
+
+        p = getOption(tree, Item.szOptionId, Item.iSelection);
+
+        //Item.szId = *p->element.szId;
+        strcpy(Item.szTitle, p->element.szTitle);
+        Item.dCost = p->element.dCost;
+    }
 return Item;
 }
+
 /*********************processCommand**********************************
   void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])
 purpose:
@@ -636,8 +661,6 @@ void partialQuoteCheck(Tree tree, QuoteSelection quote)
 
         }
     }
-    // if the array has  a 0 and not followed 1 its incomplete,
-    //if the array has a 0 and is followed by 1's i
 
 
     free(quoteCheck);
