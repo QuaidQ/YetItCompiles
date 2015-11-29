@@ -141,7 +141,7 @@ int main()
     // Free the tree, quote selection and stdin
     freeTree(tree);
     free(tree);
-    free(quote);
+
     fclose(inputFile);
     printf("\n");
     return 0;

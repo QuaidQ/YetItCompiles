@@ -310,15 +310,21 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
 
     //print shit justin!
     //call your print function here
+    partialQuoteCheck(tree,quote);
     printQuoteDetails(tree, quote);
 
-    patialQuoteCheck(tree,quote);
+    if(qResult.returnCode == QUOTE_NORMAL) {
+        printf("Total is: %40.2lf\n", qResult.dTotalCost);
+        printf("*****************END PRINT QUOTE DETAILS*************************\n");
+    }
 
-    printf("Total cost: %40.2lf\n", qResult.dTotalCost);
-    printf("*****************END PRINT QUOTE DETAILS*************************\n");
-
+    if(qResult.returnCode == QUOTE_PARTIAL) {
+        printf("\tPartial Total is: %40.2lf\n", qResult.dTotalCost);
+        printf("\t\t*** incomplete due to '%s' \n", qResult.error.szOptionId);
+        printf("*****************END PRINT QUOTE DETAILS*************************\n");
+    }
     free(quote);
-    return qResult;
+        return qResult;
 }
 
 QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
@@ -471,7 +477,7 @@ void stripNewline( char *str, int size)
 void printQuoteDetails(Tree tree, QuoteSelection quote)
 {
 
-    printf("*****************BEGIN PRINT QUOTE DETAILS*************************\n");
+    printf("\n`*****************BEGIN PRINT QUOTE DETAILS*************************\n");
     int i;
     int j;
     int k;
@@ -539,7 +545,7 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
 
 
 }
-void patialQuoteCheck(Tree tree, QuoteSelection quote)
+void partialQuoteCheck(Tree tree, QuoteSelection quote)
 {
 
     QuoteCheck quoteCheck = newQuoteCheck();
@@ -550,24 +556,24 @@ void patialQuoteCheck(Tree tree, QuoteSelection quote)
     for(i=0; i < quote->iQuoteItemCnt; i++)
     { if(quote->quoteItemM[i].iLevel == 0){
             //item with level zero found
-            printf("item with level zero found: %s \n", quote->quoteItemM[i].szOptionId);
+            // printf("item with level zero found: %s \n", quote->quoteItemM[i].szOptionId);
             //find children and siblings of the child.
             p = getOption(tree, quote->quoteItemM[i].szOptionId, quote->quoteItemM[i].iSelection);
-            printf("selecting : %s \n\t", p->element.szId);
+            //printf("selecting : %s \n\t", p->element.szId);
             //store all possible choices of p in the array.
                 //move p to the child of what your selecting
             p = p->pChild;
 
             if(p==NULL) {
-                printf("no child/child siblings to analyze\n");
+              //  printf("no child/child siblings to analyze\n");
                 break;
             }
-            printf("possible child selection: %s \n\t", p->element.szId);
+            //printf("possible child selection: %s \n\t", p->element.szId);
 
             strcpy(checkForItem.szOptionId , p->element.szId);
             checkForItem.iFound = 0;
             //checkForItem.maxSelection = /** function that returns number of child and silbings pf p .**/
-            //stare into array
+            //store into array
             quoteCheck->quoteCheckItemM[quoteCheck->iQuoteItemCnt] = checkForItem;
             quoteCheck->iQuoteItemCnt = quoteCheck->iQuoteItemCnt + 1;
             //keep filling in quoteCheck until theres no more siblings.
@@ -575,19 +581,19 @@ void patialQuoteCheck(Tree tree, QuoteSelection quote)
             p = p->pSibling;
 
                 if(p==NULL) {
-                    printf("no child/child siblings to analyze\n");
+              //      printf("no child/child siblings to analyze\n");
                     break;
                 }
 
 
             while(p != NULL){
 
-                printf("possible child slection: %s \n\t", p->element.szId);
+                //printf("possible child slection: %s \n\t", p->element.szId);
 
                 strcpy(checkForItem.szOptionId , p->element.szId);
                 checkForItem.iFound = 0;
 
-                //checkForItem.maxSelection = /** function that returns number of child and silbings pf p .**/
+                //checkForItem.maxSelection = /** function that returns number of child and siblings of p .**/
                 //stare into array
                 quoteCheck->quoteCheckItemM[quoteCheck->iQuoteItemCnt] = checkForItem;
                 quoteCheck->iQuoteItemCnt = quoteCheck->iQuoteItemCnt + 1;
@@ -598,32 +604,43 @@ void patialQuoteCheck(Tree tree, QuoteSelection quote)
 
         }
 
-
     }
 
     //look through quote array and mark what options are there.
-    for(i=0; i < quoteCheck->iQuoteItemCnt; i++){
+    for(i=0; i < quoteCheck->iQuoteItemCnt; i++)
+    {
         printf("looking for id %s in quote\n\t", quoteCheck->quoteCheckItemM[i].szOptionId);
         for (j = 0; j < quote->iQuoteItemCnt ; j++) {
-            //printf("id in quote is %s\n\t", quote->quoteItemM[j].szOptionId);
+            //printf("whats in the array?: %s\n", quote->quoteItemM[j].szOptionId);
+            //printf("what cost is in the array?: %f\n", quote->quoteItemM[j].dCost);
+
             if (strcmp(quote->quoteItemM[j].szOptionId,quoteCheck->quoteCheckItemM[i].szOptionId ) == 0){
-                printf("found!\n");
+              //  printf("found!\n");
                 quoteCheck->quoteCheckItemM[i].iFound = 1;
+                qResult.returnCode = QUOTE_NORMAL;
                 break;
             }
 
         }
         if (quoteCheck->quoteCheckItemM[i].iFound == 0) {
-            printf("NOT FOUND -> blame justin. just cause.\n its a partial quote:   ");
+            //printf("NOT FOUND -> blame justin. just cause.\n its a partial quote:   ");
             qResult.returnCode = QUOTE_PARTIAL;
             strcpy(qResult.error.szOptionId,quoteCheck->quoteCheckItemM[i].szOptionId);
-            
+            for (j = j-1; j < quote->iQuoteItemCnt ; j++) {
+              //  printf("what cost is in the array?: %f\n", quote->quoteItemM[j].dCost);
+               qResult.dTotalCost = qResult.dTotalCost - quote->quoteItemM[j].dCost;
+                quote->iQuoteItemCnt = j;
+
+            }
+
+
         }
     }
     // if the array has  a 0 and not followed 1 its incomplete,
     //if the array has a 0 and is followed by 1's i
 
 
+    free(quoteCheck);
 
 }
 

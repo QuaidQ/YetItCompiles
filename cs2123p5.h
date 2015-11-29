@@ -128,7 +128,8 @@ typedef QuoteSelectionImp *QuoteSelection;
 typedef struct
 {
     int returnCode;             // See QUOTE result code constants
-    double dTotalCost;          // Total cost (or partial cost)
+    double dPartialCost;        //Partial cost
+    double dTotalCost;          // Total cost
     QuoteSelectionItem error;   // If returnCode is not QUOTE_NORMAL,
                                 // this contains information about the
                                 // quote item that caused the error.
@@ -184,7 +185,7 @@ void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
 void commandQuote(Tree tree, QuoteSelection quote , char szRemainingTxt[]);
 void printQuoteDetails(Tree tree,QuoteSelection quote);
 QuoteSelectionItem createItem(Tree tree , char szRemainingTxt[]);
-void patialQuoteCheck(Tree tree, QuoteSelection quote);
+void partialQuoteCheck(Tree tree, QuoteSelection quote);
 QuoteCheck newQuoteCheck();
 
 // Some functions provided by Larry
