@@ -545,7 +545,7 @@ void patialQuoteCheck(Tree tree, QuoteSelection quote)
     QuoteCheck quoteCheck = newQuoteCheck();
     QuoteCheckItem checkForItem;
     //find out how many 0 ilevels are in the quote array
-    int i, iCount;
+    int i, iCount, j;
     NodeT * p;
     for(i=0; i < quote->iQuoteItemCnt; i++)
     { if(quote->quoteItemM[i].iLevel == 0){
@@ -555,23 +555,72 @@ void patialQuoteCheck(Tree tree, QuoteSelection quote)
             p = getOption(tree, quote->quoteItemM[i].szOptionId, quote->quoteItemM[i].iSelection);
             printf("selecting : %s \n\t", p->element.szId);
             //store all possible choices of p in the array.
-            p->pChild->element.szId;
+                //move p to the child of what your selecting
+            p = p->pChild;
+
+            if(p==NULL) {
+                printf("no child/child siblings to analyze\n");
+                break;
+            }
+            printf("possible child selection: %s \n\t", p->element.szId);
+
+            strcpy(checkForItem.szOptionId , p->element.szId);
+            checkForItem.iFound = 0;
             //checkForItem.maxSelection = /** function that returns number of child and silbings pf p .**/
-            
+            //stare into array
+            quoteCheck->quoteCheckItemM[quoteCheck->iQuoteItemCnt] = checkForItem;
+            quoteCheck->iQuoteItemCnt = quoteCheck->iQuoteItemCnt + 1;
+            //keep filling in quoteCheck until theres no more siblings.
+            //we were at the child now we go select all the siblings of that child
+            p = p->pSibling;
 
-            //store into array
+                if(p==NULL) {
+                    printf("no child/child siblings to analyze\n");
+                    break;
+                }
 
-            //quote->quoteItemM[quote->iQuoteItemCnt] = createItem(tree , szRemainingTxt);
+
+            while(p != NULL){
+
+                printf("possible child slection: %s \n\t", p->element.szId);
+
+                strcpy(checkForItem.szOptionId , p->element.szId);
+                checkForItem.iFound = 0;
+
+                //checkForItem.maxSelection = /** function that returns number of child and silbings pf p .**/
+                //stare into array
+                quoteCheck->quoteCheckItemM[quoteCheck->iQuoteItemCnt] = checkForItem;
+                quoteCheck->iQuoteItemCnt = quoteCheck->iQuoteItemCnt + 1;
+
+                p = p->pSibling;
+
+            }
 
         }
 
 
     }
-    //for each zero, find the childs and siblings it has
-    // and store that into the quoteCheck array.
-    //memset all ifound selections to 0
+
     //look through quote array and mark what options are there.
-    // if the array has  0 and no followed 1 its incomplete,
+    for(i=0; i < quoteCheck->iQuoteItemCnt; i++){
+        printf("looking for id %s in quote\n\t", quoteCheck->quoteCheckItemM[i].szOptionId);
+        for (j = 0; j < quote->iQuoteItemCnt ; j++) {
+            //printf("id in quote is %s\n\t", quote->quoteItemM[j].szOptionId);
+            if (strcmp(quote->quoteItemM[j].szOptionId,quoteCheck->quoteCheckItemM[i].szOptionId ) == 0){
+                printf("found!\n");
+                quoteCheck->quoteCheckItemM[i].iFound = 1;
+                break;
+            }
+
+        }
+        if (quoteCheck->quoteCheckItemM[i].iFound == 0) {
+            printf("NOT FOUND -> blame justin. just cause.\n its a partial quote:   ");
+            qResult.returnCode = QUOTE_PARTIAL;
+            strcpy(qResult.error.szOptionId,quoteCheck->quoteCheckItemM[i].szOptionId);
+            
+        }
+    }
+    // if the array has  a 0 and not followed 1 its incomplete,
     //if the array has a 0 and is followed by 1's i
 
 
