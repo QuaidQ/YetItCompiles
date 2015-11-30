@@ -244,6 +244,30 @@ void commandPrint(Tree tree,  char szRemainingTxt[])
         printOne(tree,szId);
     }
 }
+/*********************commandDefine****************************************
+  void commandQuote(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+purpose:
+the function is called from the driver that gets a line of input
+Its passed a line of input and it gets the first command of the line
+ ********
+ command types
+ 1.DEFINE
+ 2.PRINT
+ 3.DELETE
+ 4.QUOTE
+ ********
+ calls different functions depending of the type of command.
+Parameters:
+I Tree tree     tree of menu to be inserted to and printed off
+I QuoteSelection quote   quote to the menu to be inserted and printed off
+I char szRemainingTxt[]  buffer after you've taken out the initial define command
+Returns:
+N/A
+Notes:
+
+ *************************************************************************/
+
+
 void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
 {
 
@@ -296,6 +320,21 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
     }
 
 }
+
+/*********************determinQuote****************************************
+  QuoteResult determinQuote(Tree tree, QuoteSelection quote)Purpose:
+	Calls partialQuoteCheck to see if its a Normal or partial Quote, then prints it. if qResult is equal ot Bad option/selction stops where its dected and prints warning. 
+Parameters:
+I Tree tree     tree of menu to be inserted to and printed off
+I QuoteSelection quote   quote to the menu to be inserted and printed off
+
+Returns:
+	returns the results of the Quote whether its a full/partial Quote or a Bade Value.
+
+Notes:
+	
+ *************************************************************************/
+
 QuoteResult determineQuote(Tree tree, QuoteSelection quote)
 {
 
@@ -325,6 +364,25 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
     free(quote);
         return qResult;
 }
+
+/*********************createItem****************************************
+ QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[]) 
+Purpose:
+	goes through the line of input to get the iLevel, OptionId, and its total cost to creat an item. if the option ID in does not exist then our result is a bad option. 
+	
+Parameters:
+I Tree tree     tree of menu to be inserted to 
+I char szRemainingTxt[] buffer after you've taken out the initial define command
+
+
+Returns:
+	When its done deciding if its a valid option or a bad option, returns the created item. 
+
+
+Notes:
+
+ *************************************************************************/
+
 
 QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
 {
@@ -492,6 +550,21 @@ void stripNewline( char *str, int size)
             }
         }
 }
+
+/*********************printQuoteDetails****************************************
+  void printQuoteDetails(Tree tree, QuoteSelection quote)Purpose:
+	prints the Quote in pretty print format 
+Parameters:
+I Tree tree     tree of menu to be inserted to and printed off
+I QuoteSelection quote   quote to the menu to be inserted and printed off
+
+Returns:
+N/A
+
+Notes:
+
+ *************************************************************************/
+
 void printQuoteDetails(Tree tree, QuoteSelection quote)
 {
 
@@ -562,6 +635,22 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
 
 
 }
+
+/*********************partialQuoteCheck****************************************
+  void partialQuoteCheck(Tree tree, QuoteSelection quote)Purpose:
+	Goes through quote array to see if the quote is a FULL QUOTE or a Partial QUOTE. if both option ids match up, iFound is equal to 1 and marks it as FUll Quote and adds up the total cost . IF the options ids are not equal then iFound is equal to 0 and marked as a partial quote and only the items up to the point where the id's do not match are added into the total cost.
+
+Parameters:
+I Tree tree     tree of menu to be inserted to and printed off
+I QuoteSelection quote   quote to the menu to be inserted and printed off
+
+Returns:
+N/A
+
+Notes:
+
+ *************************************************************************/
+
 void partialQuoteCheck(Tree tree, QuoteSelection quote)
 {
 
