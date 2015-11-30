@@ -22,7 +22,7 @@ N/A
 Notes:
 
  *************************************************************************/
-void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+void commandDefine(Tree tree, char szRemainingTxt[])
 {    //get second command to see if its Option or value
         char szsubComandType[16];
         char *pszRemainingTxt;
@@ -154,13 +154,13 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
                     //or the item is already in the menu
                     if (findId(tree->pRoot,element.szId) != NULL){
                    //    ErrExit(ERR_DATA, "Option trying to be inserted is already in the Menu");
-                       printf("Item is already in the menu\n\t");
+                       printf("Item is already in the menu\n");
                             return;
                     }
                     pParent = findId(tree->pRoot,szParentId);
                     //this if statement handles value into value
                     if(pParent->element.cNodeType == 'V' && element.cNodeType == 'V'){
-                        printf("\tCan't insert a value into a value!\n\t");
+                        printf("\tCan't insert a value into a value!\n");
                     return;
                     }
                     insertT(&pParent->pChild,element);
@@ -234,10 +234,7 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
 
     if (strcmp(szsubComandType, "ALL") == 0)
     {
-        //  printf("command PRINT ALL obtained, need to call function\n\n");
-        /*****************************************
-         * call to print all here                 *
-         *****************************************/
+        // command PRINT ALL obtained need to call function
         printPriceMenu(tree);
     }
     if (strcmp(szsubComandType, "ONE") == 0)
@@ -246,7 +243,7 @@ void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
         pszRemainingTxt = getToken(szRemainingTxt, szId, sizeof(szId)-1);
         strcpy(szRemainingTxt, pszRemainingTxt);
 
-        //printf("command PRINT ONE obtained, need to call function\n");
+        //command PRINT ONE obtained, need to call function
         printOne(tree,szId);
     }
 }
@@ -272,23 +269,17 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
         if(QuoteBegun != TRUE)
             return;
 
-        if(qResult.returnCode != QUOTE_BAD_OPTION) {
+        if(qResult.returnCode != QUOTE_BAD_OPTION  && qResult.returnCode != QUOTE_BAD_SELECTION) {
 
             quote->quoteItemM[quote->iQuoteItemCnt] = createItem(tree, szRemainingTxt);
-            if(qResult.returnCode != QUOTE_BAD_OPTION) {
-                printf("Item's iLevel:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iLevel);
-                printf("Item's szOptionId:\t %s\n", quote->quoteItemM[quote->iQuoteItemCnt].szOptionId);
-                printf("Item's iSelection:\t %d\n", quote->quoteItemM[quote->iQuoteItemCnt].iSelection);
-                printf("Item's szTitle:\t %s\n", quote->quoteItemM[quote->iQuoteItemCnt].szTitle);
-                printf("Item's dCost:\t %.2f\n", quote->quoteItemM[quote->iQuoteItemCnt].dCost);
 
+            if(qResult.returnCode != QUOTE_BAD_OPTION  && qResult.returnCode != QUOTE_BAD_SELECTION) {
 
                 //add item
                 qResult.dTotalCost = qResult.dTotalCost + quote->quoteItemM[quote->iQuoteItemCnt].dCost;
 
                 quote->iQuoteItemCnt = quote->iQuoteItemCnt + 1;
-                printf("count in array is %d\n", quote->iQuoteItemCnt);
-                printf("Total cost: %.2f\n", qResult.dTotalCost);
+
             }
         }
         }
@@ -300,8 +291,8 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
 
         determineQuote(tree, quote);
 
-        printf("END\n");
 
+        qResult.returnCode = 0;
         qResult.dTotalCost =0.0;
 
 
@@ -314,8 +305,9 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
     //print shit justin!
     //call your print function here
     //if its not valid no need to  check if partial
-   if(qResult.returnCode != QUOTE_BAD_OPTION )
+    if(qResult.returnCode != QUOTE_BAD_OPTION  && qResult.returnCode != QUOTE_BAD_SELECTION)
        partialQuoteCheck(tree,quote);
+
 
     printQuoteDetails(tree, quote);
 
@@ -334,19 +326,16 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
         printf("\t\t*** invalid option '%s' \n", qResult.error.szOptionId);
         printf("*****************END PRINT QUOTE DETAILS*************************\n");
     }
-
+    if(qResult.returnCode == QUOTE_BAD_SELECTION) {
+        printf("\t\t*** invalid option selection '%s' %d \n", qResult.error.szOptionId, qResult.error.iSelection);
+        printf("*****************END PRINT QUOTE DETAILS*************************\n");
+    }
     free(quote);
         return qResult;
 }
 
 QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
 {
-    if (qResult.returnCode == QUOTE_BAD_OPTION)
-        return;
-
-
-    printf("OPTION\n");
-
 
     char sziLevel[16];
     //char cszOptionID[MAX_ID_SIZE+1];
@@ -355,6 +344,9 @@ QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
 
     NodeT * p;
     QuoteSelectionItem Item;
+
+    if (qResult.returnCode == QUOTE_BAD_OPTION && qResult.returnCode == QUOTE_BAD_SELECTION)
+        return Item;
 
     //get iLevel token
     pszRemainingTxt = getToken(szRemainingTxt, sziLevel,sizeof(sziLevel)-1);
@@ -376,18 +368,26 @@ QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[])
     //call dCost
 
     if (findId(tree->pRoot, Item.szOptionId) == NULL) {
-        printf("item not found\n");
+
         qResult.returnCode = QUOTE_BAD_OPTION;
         strcpy(qResult.error.szOptionId,Item.szOptionId);
 
     } else {
 
         p = getOption(tree, Item.szOptionId, Item.iSelection);
+        if (p != NULL) {
 
-        //Item.szId = *p->element.szId;
-        strcpy(Item.szTitle, p->element.szTitle);
-        Item.dCost = p->element.dCost;
-    }
+            strcpy(Item.szTitle, p->element.szTitle);
+            Item.dCost = p->element.dCost;
+
+         }else{
+
+            qResult.returnCode = QUOTE_BAD_SELECTION;
+            strcpy(qResult.error.szOptionId,Item.szOptionId);
+            qResult.error.iSelection = Item.iSelection;
+        }
+
+        }
 return Item;
 }
 
@@ -422,7 +422,7 @@ void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])
         strcpy(szRemainingTxt, pszRemainingTxt);
 
         if (strcmp(szCommandType, "DEFINE") == 0){
-            commandDefine(tree,quote, szRemainingTxt);
+            commandDefine(tree, szRemainingTxt);
         }
 
         if(strcmp(szCommandType, "PRINT") == 0){
@@ -515,7 +515,6 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
         //find the selection
         iSelect = quote->quoteItemM[i].iSelection;
 
-            //printf("iselect is %d\n", iSelect);
 
         if (iSelect == 1) {
             pkid = pParent->pChild;
@@ -529,9 +528,7 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
 
             }
         }
-        //printf("%s\n", pParent->element.szTitle);
 
-        // printf("");
         if (pParent->element.cCostInd == 'N') {
             if(quote->quoteItemM[i].iLevel == 0)
                 printf("\n");
@@ -576,15 +573,14 @@ void partialQuoteCheck(Tree tree, QuoteSelection quote)
     QuoteCheck quoteCheck = newQuoteCheck();
     QuoteCheckItem checkForItem;
     //find out how many 0 ilevels are in the quote array
-    int i, iCount, j;
+    int i,  j;
     NodeT * p;
     for(i=0; i < quote->iQuoteItemCnt; i++)
     { if(quote->quoteItemM[i].iLevel == 0){
             //item with level zero found
-            // printf("item with level zero found: %s \n", quote->quoteItemM[i].szOptionId);
             //find children and siblings of the child.
             p = getOption(tree, quote->quoteItemM[i].szOptionId, quote->quoteItemM[i].iSelection);
-            //printf("selecting : %s \n\t", p->element.szId);
+
             //store all possible choices of p in the array.
                 //move p to the child of what your selecting
             p = p->pChild;
@@ -593,33 +589,25 @@ void partialQuoteCheck(Tree tree, QuoteSelection quote)
               //  printf("no child/child siblings to analyze\n");
                 break;
             }
-            //printf("possible child selection: %s \n\t", p->element.szId);
 
             strcpy(checkForItem.szOptionId , p->element.szId);
             checkForItem.iFound = 0;
-            //checkForItem.maxSelection = /** function that returns number of child and silbings pf p .**/
-            //store into array
             quoteCheck->quoteCheckItemM[quoteCheck->iQuoteItemCnt] = checkForItem;
             quoteCheck->iQuoteItemCnt = quoteCheck->iQuoteItemCnt + 1;
-            //keep filling in quoteCheck until theres no more siblings.
+
+            //keep filling in quoteCheck until there's no more siblings.
             //we were at the child now we go select all the siblings of that child
             p = p->pSibling;
 
                 if(p==NULL) {
-              //      printf("no child/child siblings to analyze\n");
                     break;
                 }
 
-
             while(p != NULL){
-
-                //printf("possible child slection: %s \n\t", p->element.szId);
-
+\
                 strcpy(checkForItem.szOptionId , p->element.szId);
                 checkForItem.iFound = 0;
 
-                //checkForItem.maxSelection = /** function that returns number of child and siblings of p .**/
-                //stare into array
                 quoteCheck->quoteCheckItemM[quoteCheck->iQuoteItemCnt] = checkForItem;
                 quoteCheck->iQuoteItemCnt = quoteCheck->iQuoteItemCnt + 1;
 
@@ -634,13 +622,10 @@ void partialQuoteCheck(Tree tree, QuoteSelection quote)
     //look through quote array and mark what options are there.
     for(i=0; i < quoteCheck->iQuoteItemCnt; i++)
     {
-        printf("looking for id %s in quote\n\t", quoteCheck->quoteCheckItemM[i].szOptionId);
         for (j = 0; j < quote->iQuoteItemCnt ; j++) {
-            //printf("whats in the array?: %s\n", quote->quoteItemM[j].szOptionId);
-            //printf("what cost is in the array?: %f\n", quote->quoteItemM[j].dCost);
 
             if (strcmp(quote->quoteItemM[j].szOptionId,quoteCheck->quoteCheckItemM[i].szOptionId ) == 0){
-              //  printf("found!\n");
+
                 quoteCheck->quoteCheckItemM[i].iFound = 1;
                 qResult.returnCode = QUOTE_NORMAL;
                 break;
@@ -648,13 +633,14 @@ void partialQuoteCheck(Tree tree, QuoteSelection quote)
 
         }
         if (quoteCheck->quoteCheckItemM[i].iFound == 0) {
-            //printf("NOT FOUND -> blame justin. just cause.\n its a partial quote:   ");
+
             qResult.returnCode = QUOTE_PARTIAL;
             strcpy(qResult.error.szOptionId,quoteCheck->quoteCheckItemM[i].szOptionId);
+
             for (j = j-1; j < quote->iQuoteItemCnt ; j++) {
-              //  printf("what cost is in the array?: %f\n", quote->quoteItemM[j].dCost);
+
                qResult.dTotalCost = qResult.dTotalCost - quote->quoteItemM[j].dCost;
-                quote->iQuoteItemCnt = j;
+               quote->iQuoteItemCnt = j;
 
             }
 
@@ -662,9 +648,7 @@ void partialQuoteCheck(Tree tree, QuoteSelection quote)
         }
     }
 
-
     free(quoteCheck);
-
 }
 
 /******************** newQuoteCheck **************************************

@@ -128,7 +128,6 @@ typedef QuoteSelectionImp *QuoteSelection;
 typedef struct
 {
     int returnCode;             // See QUOTE result code constants
-    double dPartialCost;        //Partial cost
     double dTotalCost;          // Total cost
     QuoteSelectionItem error;   // If returnCode is not QUOTE_NORMAL,
                                 // this contains information about the
@@ -178,7 +177,7 @@ NodeT *getOption(Tree tree, char szId[], int iSelection);
 
 // Driver function to process a input data line.  Groups must write this function
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
-void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
+void commandDefine(Tree tree,  char szRemainingTxt[]);
 void stripNewline( char *str, int size);
 void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
 void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
