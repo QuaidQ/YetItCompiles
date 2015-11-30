@@ -44,15 +44,19 @@ void commandDefine(Tree tree, char szRemainingTxt[])
         {
             element.cNodeType = 'O';
                 element.cCostInd = 'N';
+
                 //getID of node
                 pszRemainingTxt = getToken(szRemainingTxt, element.szId, sizeof(element.szId)-1);
                 strcpy(szRemainingTxt, pszRemainingTxt);
+
                 //get ID of it's parent
                 pszRemainingTxt = getToken(szRemainingTxt, parentsNodesID, sizeof(parentsNodesID)-1);
                 strcpy(szRemainingTxt, pszRemainingTxt);
+
                 //get the title for node
                 pszRemainingTxt = getToken(szRemainingTxt, element.szTitle, sizeof(element.szTitle)-1);
                 strcpy(szRemainingTxt, pszRemainingTxt);
+
                 //element completed ready to be inserted
                 insertPriceMenu(tree,element,parentsNodesID);
 
@@ -84,9 +88,6 @@ void commandDefine(Tree tree, char szRemainingTxt[])
 
 
                 //get the title for node
-
-                // pszRemainingTxt = getToken(szRemainingTxt, element.szTitle, sizeof(element.szTitle)-1);
-                //strcpy(szRemainingTxt, pszRemainingTxt);
                 strcpy(element.szTitle,szRemainingTxt);
                 stripNewline(element.szTitle, 30);
 
@@ -190,7 +191,6 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
  *************************************************************************/
 void commandDelete(Tree tree, char szId[] )
 {
-     printf("Command DELETE processed. Item to be deleted: %s\n" ,szId );
     stripNewline(szId,12 );
      deleteItem(tree, szId);
 
@@ -299,8 +299,7 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
 QuoteResult determineQuote(Tree tree, QuoteSelection quote)
 {
 
-    //print shit justin!
-    //call your print function here
+
     //if its not valid no need to  check if partial
     if(qResult.returnCode != QUOTE_BAD_OPTION  && qResult.returnCode != QUOTE_BAD_SELECTION)
        partialQuoteCheck(tree,quote);
@@ -310,23 +309,19 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
 
     if(qResult.returnCode == QUOTE_NORMAL) {
         printf("Total is: %40.2lf\n", qResult.dTotalCost);
-        printf("*****************END PRINT QUOTE DETAILS*************************\n");
-    }
+        }
 
     if(qResult.returnCode == QUOTE_PARTIAL) {
         printf("Partial Total is: %30.2lf\n", qResult.dTotalCost);
         printf("\t*** incomplete due to '%s' \n", qResult.error.szOptionId);
-        printf("*****************END PRINT QUOTE DETAILS*************************\n");
-    }
+        }
 
     if(qResult.returnCode == QUOTE_BAD_OPTION) {
         printf("\t*** invalid option '%s' \n", qResult.error.szOptionId);
-        printf("*****************END PRINT QUOTE DETAILS*************************\n");
-    }
+        }
     if(qResult.returnCode == QUOTE_BAD_SELECTION) {
         printf("\t*** invalid option selection '%s' %d \n", qResult.error.szOptionId, qResult.error.iSelection);
-        printf("*****************END PRINT QUOTE DETAILS*************************\n");
-    }
+        }
     free(quote);
         return qResult;
 }
@@ -422,15 +417,16 @@ void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])
             commandDefine(tree, szRemainingTxt);
         }
 
-        if(strcmp(szCommandType, "PRINT") == 0){
+        else if(strcmp(szCommandType, "PRINT") == 0){
             commandPrint(tree, szRemainingTxt);
         }
-        if(strcmp(szCommandType, "DELETE") == 0){
+        else if(strcmp(szCommandType, "DELETE") == 0){
         commandDelete(tree, szRemainingTxt);
         }
-        if(strcmp(szCommandType, "QUOTE") == 0){
+        else if(strcmp(szCommandType, "QUOTE") == 0){
         commandQuote(tree, quote , szRemainingTxt);
         }
+
 }
 /*********************freeSubTree*****************************
   void freeTree(NodeT*p)
@@ -499,7 +495,6 @@ void stripNewline( char *str, int size)
 void printQuoteDetails(Tree tree, QuoteSelection quote)
 {
 
-    printf("\n`*****************BEGIN PRINT QUOTE DETAILS*************************\n");
     int i;
     int j;
     int k;
@@ -563,7 +558,6 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
         }
 
     }
-    printf("\n");
     return;
 
 
@@ -605,7 +599,7 @@ void partialQuoteCheck(Tree tree, QuoteSelection quote)
                 }
 
             while(p != NULL){
-\
+
                 strcpy(checkForItem.szOptionId , p->element.szId);
                 checkForItem.iFound = 0;
 

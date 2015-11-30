@@ -109,11 +109,12 @@ int main()
     // Read command lines until EOF
     while (fgets(szInputBuffer, MAX_LINE_SIZE, inputFile) != NULL)
     {
+        printf("%s \n", szInputBuffer);
 
         // If the line is just a comment or empty, ignore it
-        if (szInputBuffer[0] == '*'  || szInputBuffer[0] == '\0')
-            continue;                               // Command is a comment so skip it
-        printf("Command Obtained: %s \n", szInputBuffer);
+        if (szInputBuffer[0] == '*'  || szInputBuffer[0] == '\0' || szInputBuffer[0]== '\n') {
+            continue;
+        }                               // Command is a comment so skip it
             processCommand(tree, quote, szInputBuffer);
     }
 

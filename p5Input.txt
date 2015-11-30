@@ -103,6 +103,19 @@ QUOTE OPTION 1 audio_base 3
 QUOTE OPTION 0 warranty 2
 QUOTE END
 *
+********************************** QUOTE ***************
+*
+* This quote has an extra selection
+*
+QUOTE BEGIN
+QUOTE OPTION 0 model 1
+QUOTE OPTION 1 engine_base 1
+QUOTE OPTION 1 color_base 2
+QUOTE OPTION 1 audio_base 2
+QUOTE OPTION 0 model 2
+QUOTE OPTION 0 warranty 2
+QUOTE END
+*
 ******************************** DELETE OPTION VALUE **************
 *
 * Delete the seaGreen, but dont delete empress and blackPearl
