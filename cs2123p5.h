@@ -179,7 +179,7 @@ NodeT *getOption(Tree tree, char szId[], int iSelection);
 void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
 void commandDefine(Tree tree,  char szRemainingTxt[]);
 void stripNewline( char *str, int size);
-void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[]);
+void commandPrint(Tree tree,  char szRemainingTxt[]);
 void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
 void commandQuote(Tree tree, QuoteSelection quote , char szRemainingTxt[]);
 void printQuoteDetails(Tree tree,QuoteSelection quote);

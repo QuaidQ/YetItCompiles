@@ -95,11 +95,7 @@ void commandDefine(Tree tree, char szRemainingTxt[])
 
         }
 
-        /***************************************************
-         * element has been filled and ready to be inserted.*
-         ****************************************************/
 
-        //call insert here
 
         return;
 }
@@ -123,7 +119,7 @@ handles diffrent types of inserting errors that user might place
 void insertPriceMenu(Tree tree, Element element, char szParentId[])
 {
     //here we handle if the root is empty so we insert
-    //to go down the list of roots sibilings until it hits null
+    //to go down the list of roots siblings until it hits null
     //and inserts
 
         if(strcmp(szParentId,"ROOT")== 0){
@@ -154,21 +150,22 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
                     //or the item is already in the menu
                     if (findId(tree->pRoot,element.szId) != NULL){
                    //    ErrExit(ERR_DATA, "Option trying to be inserted is already in the Menu");
-                       printf("Item is already in the menu\n");
-                            return;
+                        warning("Item is already in the menu\n", printf );
+                        return;
                     }
                     pParent = findId(tree->pRoot,szParentId);
                     //this if statement handles value into value
                     if(pParent->element.cNodeType == 'V' && element.cNodeType == 'V'){
-                        printf("\tCan't insert a value into a value!\n");
-                    return;
+                        warning("Can't insert a value into a value!\n", printf );
+                        return;
                     }
                     insertT(&pParent->pChild,element);
                 }
                 else{
-                   // ErrExit(ERR_DATA, "Option trying to be inserted at wrong place, wrong parent ID from Input.");
-                     printf("OOOPS NO PARENT FOUND. Can't insert that");
-                        printf("\n");
+                    warning("No node found to inset under", printf );
+
+
+                    printf("\n");
               return;
 
 
@@ -220,14 +217,14 @@ N/A
 Notes:
 
  *************************************************************************/
-void commandPrint(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+void commandPrint(Tree tree,  char szRemainingTxt[])
 {
     //items for getToken
     char szsubComandType[16];
     char szId[32];
     char *pszRemainingTxt;
 
-    //get subcommand
+    //get sub-command
     pszRemainingTxt = getToken(szRemainingTxt, szsubComandType, sizeof(szsubComandType)-1);
     // continue through line of  input
     strcpy(szRemainingTxt, pszRemainingTxt);
@@ -426,7 +423,7 @@ void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])
         }
 
         if(strcmp(szCommandType, "PRINT") == 0){
-            commandPrint(tree, quote,szRemainingTxt);
+            commandPrint(tree, szRemainingTxt);
         }
         if(strcmp(szCommandType, "DELETE") == 0){
         commandDelete(tree, quote , szRemainingTxt);
