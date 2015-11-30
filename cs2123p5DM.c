@@ -6,24 +6,21 @@
 #include <stdlib.h>
 #include "cs2123p5.h"
 /*********************commandDefine****************************************
-  void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+  void commandDefine(Tree tree, char szRemainingTxt[])
 purpose:
-the function is called after a command DEFINE has been initiated.
-We find out the rest of the buffer
-see if its and option or value
-place buffer info into the element. then it calls insertPriceMenu passing it
-the tree, element made and the elements parentId
+    the function is called after a command DEFINE has been initiated.
+    We find out the rest of the buffer
+    see if its and option or value
+    place buffer info into the element. then it calls insertPriceMenu passing it
+    the tree, element made and the elements parentId
 Parameters:
-I Tree tree     tree of menu to be inserted to and printed off
-I QuoteSelection quote   quote to the menu to be inserted and printed off
-I char szRemainingTxt[]  buffer after you've taken out the initial define command
+    I Tree tree     tree of menu to be inserted to and printed off
+    I char szRemainingTxt[]  buffer after you've taken out the initial define command
 Returns:
-N/A
+    N/A
 Notes:
 
  *************************************************************************/
-
-
 void commandDefine(Tree tree, char szRemainingTxt[])
 {    //get second command to see if its Option or value
         char szsubComandType[16];
@@ -126,16 +123,14 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
     //and inserts
 
         if(strcmp(szParentId,"ROOT")== 0){
-            //printf("parent ID is ROOT so inserting to the root\n\t");
+
             if(tree->pRoot == NULL){
                 tree->pRoot = allocateNodeT(element);
-                    //          printf("element inserted in pROOt\n\n ");
                     return;
             }
             //p is pointing to sibling of pROOT;
 
                 if(tree->pRoot->pSibling == NULL){
-                    //    printf("Root SIBLING is empty, inserting here\n\n");
                     tree->pRoot->pSibling = allocateNodeT(element);
                         return;
                 }
@@ -152,7 +147,6 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
                     //check if parent is the same as option
                     //or the item is already in the menu
                     if (findId(tree->pRoot,element.szId) != NULL){
-                   //    ErrExit(ERR_DATA, "Option trying to be inserted is already in the Menu");
                         warning("Item is already in the menu\n", printf );
                         return;
                     }
@@ -165,11 +159,9 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
                     insertT(&pParent->pChild,element);
                 }
                 else{
-                    warning("No node found to inset under", printf );
+                    warning("No node found to inset under\n", printf );
 
-
-                    printf("\n");
-              return;
+ return;
 
 
                 }
@@ -177,14 +169,13 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
 }
 
 /*********************commandDelete****************************************
-  void commandDelete(Tree tree, QuoteSelection quote, char szId[])
+  void commandDelete(Tree tree,char szId[])
  purpose:
   the function is called after a command DELETE has been initiated.
   We find out the rest of the buffer
   Call a function to delete with!
  Parameters:
   I Tree tree     tree of menu to be inserted to and printed off
-  I QuoteSelection quote   quote to the menu to be inserted and printed off
   I char szId[]   id of element to be deleted
  Returns:
   N/A
@@ -237,23 +228,17 @@ void commandPrint(Tree tree,  char szRemainingTxt[])
         printOne(tree,szId);
     }
 }
-/*********************commandDefine****************************************
-  void commandQuote(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+/*********************commandQuote****************************************
+  void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
 purpose:
-the function is called from the driver that gets a line of input
-Its passed a line of input and it gets the first command of the line
- ********
- command types
- 1.DEFINE
- 2.PRINT
- 3.DELETE
- 4.QUOTE
- ********
- calls different functions depending of the type of command.
+    the function is called from the driver that gets a line of input
+    Its passed a line of input and it gets the second command of the line
+    calls different functions depending of the type of command.
+    it can be begin, option, and end.
 Parameters:
-I Tree tree     tree of menu to be inserted to and printed off
-I QuoteSelection quote   quote to the menu to be inserted and printed off
-I char szRemainingTxt[]  buffer after you've taken out the initial define command
+    I Tree tree     tree of menu to be inserted to and printed off
+    I QuoteSelection quote   quote to the menu to be inserted and printed off
+    I char szRemainingTxt[]  buffer after you've taken out the initial define command
 Returns:
 N/A
 Notes:
@@ -315,8 +300,10 @@ void commandQuote(Tree tree,QuoteSelection quote , char szRemainingTxt[])
 }
 
 /*********************determinQuote****************************************
-  QuoteResult determinQuote(Tree tree, QuoteSelection quote)Purpose:
-	Calls partialQuoteCheck to see if its a Normal or partial Quote, then prints it. if qResult is equal ot Bad option/selction stops where its dected and prints warning. 
+  QuoteResult determinQuote(Tree tree, QuoteSelection quote)
+ Purpose:
+	Calls partialQuoteCheck to see if its a Normal or partial Quote, then prints it.
+ if qResult is equal ot Bad option/selection stops where its detected and prints warning.
 Parameters:
 I Tree tree     tree of menu to be inserted to and printed off
 I QuoteSelection quote   quote to the menu to be inserted and printed off
@@ -361,19 +348,17 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
 /*********************createItem****************************************
  QuoteSelectionItem createItem(Tree tree, char szRemainingTxt[]) 
 Purpose:
-	goes through the line of input to get the iLevel, OptionId, and its total cost to creat an item. if the option ID in does not exist then our result is a bad option. 
+	goes through the line of input to get the iLevel, OptionId, and its total cost to creat an item.
+    if the option ID in does not exist then our result is a bad option.
 	
 Parameters:
-I Tree tree     tree of menu to be inserted to 
-I char szRemainingTxt[] buffer after you've taken out the initial define command
+    I Tree tree     tree of menu to be inserted to
+I   char szRemainingTxt[] buffer after you've taken out the initial define command
 
 
 Returns:
 	When its done deciding if its a valid option or a bad option, returns the created item. 
-
-
 Notes:
-
  *************************************************************************/
 
 
@@ -500,7 +485,7 @@ void freeTree(Tree tree)
 /*********************freeSubTree*****************************
   void freeSubTree(NodeT*p)
 purpose:
-recurse through tree and frees it
+recurse through subTree and frees it
 Parameters:
 I/O NodeT *P pointer to the tree
 Returns: p
@@ -631,7 +616,10 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
 
 /*********************partialQuoteCheck****************************************
   void partialQuoteCheck(Tree tree, QuoteSelection quote)Purpose:
-	Goes through quote array to see if the quote is a FULL QUOTE or a Partial QUOTE. if both option ids match up, iFound is equal to 1 and marks it as FUll Quote and adds up the total cost . IF the options ids are not equal then iFound is equal to 0 and marked as a partial quote and only the items up to the point where the id's do not match are added into the total cost.
+	Goes through quote array to see if the quote is a FULL QUOTE or a Partial QUOTE.
+    if both option ids match up, iFound is equal to 1 and marks it as FUll Quote and adds up the total cost .
+    IF the options ids are not equal then iFound is equal to 0 and marked as a partial quote and only the items up to the point
+    where the id's do not match are added into the total cost.
 
 Parameters:
 I Tree tree     tree of menu to be inserted to and printed off

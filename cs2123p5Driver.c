@@ -118,26 +118,6 @@ int main()
             processCommand(tree, quote, szInputBuffer);
     }
 
-    //********************begin findParent test code***************************************
-//    NodeT *pParent;
-//    NodeT *p;
-//
-//    //retrieve a child node for testing
-//    p = findId(tree->pRoot, "turbo");
-//
-//    //run findParent against the node if it's not null
-//    if (p != NULL)
-//    {
-//        pParent = findParent(pParent, tree->pRoot, p);
-//        printf("p szId: %s\n", p->element.szId);
-//        printf("pParent szId: %s\n", pParent->element.szId);
-//    }
-    //********************end findParent test code***************************************
-    //deleteItem(tree, "turbo");
-    //prettyPrint(tree->pRoot, 0);
-    //********************begin deleteItem test code***************************************
-
-    //********************end deleteItem test code*****************************************
 
     // Free the tree, quote selection and stdin
     freeTree(tree);
