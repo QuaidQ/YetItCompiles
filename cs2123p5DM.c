@@ -190,7 +190,7 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
  *************************************************************************/
 void commandDelete(Tree tree, char szId[] )
 {
-     printf("Command DELETE processed. Item to be deleted: .%s.\n" ,szId );
+     printf("Command DELETE processed. Item to be deleted: %s\n" ,szId );
     stripNewline(szId,12 );
      deleteItem(tree, szId);
 
