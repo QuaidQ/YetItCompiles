@@ -191,8 +191,9 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
 void commandDelete(Tree tree, char szId[] )
 {
      printf("Command DELETE processed. Item to be deleted: .%s.\n" ,szId );
-
+    stripNewline(szId,12 );
      deleteItem(tree, szId);
+
 }
 /*********************commandDefine****************************************
   void command(Tree tree, QuoteSelection quote, char szRemainingTxt[])
@@ -313,17 +314,17 @@ QuoteResult determineQuote(Tree tree, QuoteSelection quote)
     }
 
     if(qResult.returnCode == QUOTE_PARTIAL) {
-        printf("\tPartial Total is: %40.2lf\n", qResult.dTotalCost);
-        printf("\t\t*** incomplete due to '%s' \n", qResult.error.szOptionId);
+        printf("Partial Total is: %30.2lf\n", qResult.dTotalCost);
+        printf("\t*** incomplete due to '%s' \n", qResult.error.szOptionId);
         printf("*****************END PRINT QUOTE DETAILS*************************\n");
     }
 
     if(qResult.returnCode == QUOTE_BAD_OPTION) {
-        printf("\t\t*** invalid option '%s' \n", qResult.error.szOptionId);
+        printf("\t*** invalid option '%s' \n", qResult.error.szOptionId);
         printf("*****************END PRINT QUOTE DETAILS*************************\n");
     }
     if(qResult.returnCode == QUOTE_BAD_SELECTION) {
-        printf("\t\t*** invalid option selection '%s' %d \n", qResult.error.szOptionId, qResult.error.iSelection);
+        printf("\t*** invalid option selection '%s' %d \n", qResult.error.szOptionId, qResult.error.iSelection);
         printf("*****************END PRINT QUOTE DETAILS*************************\n");
     }
     free(quote);
@@ -546,14 +547,18 @@ void printQuoteDetails(Tree tree, QuoteSelection quote)
             printf("here");
 
         } else {
-            if(quote->quoteItemM[i].iLevel == 0)
+            if(quote->quoteItemM[i].iLevel == 0) {
                 printf("");
-            if(quote->quoteItemM[i].iLevel == 1)
+                printf("%-30.5s        %-10.2lf\n", pkid->element.szTitle, pkid->element.dCost);
+            }
+            if(quote->quoteItemM[i].iLevel == 1) {
                 printf("      ");
-            if(quote->quoteItemM[i].iLevel == 2)
+                printf("%-30.5s%-10.2lf\n", pkid->element.szTitle, pkid->element.dCost);
+            }
+            if(quote->quoteItemM[i].iLevel == 2) {
                 printf("         ");
-
-            printf("%-30s%-8.2lf\n", pkid->element.szTitle, pkid->element.dCost);
+                printf("%-30.5s%-10.2lf\n", pkid->element.szTitle, pkid->element.dCost);
+            }
 
         }
 
