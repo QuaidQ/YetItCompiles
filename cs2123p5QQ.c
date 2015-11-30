@@ -87,11 +87,11 @@ void printOne(Tree tree, char szId[])
 
     if (p == NULL){
         warning("ERROR ID %s NOT FOUND\n", szId , printf);
+        return;
 
     }    else if (p->element.cCostInd == 'N')
         printf("Title: %-30s\n", p->element.szTitle);
     // if it does have a value print both item title and its cost
     else
-
         printf("Title: %s\n Cost: %.2lf\n", p->element.szTitle, p->element.dCost);
 }

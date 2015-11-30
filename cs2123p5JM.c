@@ -37,9 +37,11 @@ void deleteItem(Tree tree, char szId[])
     p = findId(tree->pRoot, szId);
 
     //return if the node is null
-    if (p == NULL)
+    if (p == NULL) {
+        warning("Item is not found in the menu",printf);
         return;
 
+    }
     //get the parent of p
     pParent = findParent(pParent, tree->pRoot, p);
 

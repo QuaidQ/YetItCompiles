@@ -132,10 +132,10 @@ int main()
 //        printf("pParent szId: %s\n", pParent->element.szId);
 //    }
     //********************end findParent test code***************************************
-
-    //********************begin deleteItem test code***************************************
     //deleteItem(tree, "turbo");
     //prettyPrint(tree->pRoot, 0);
+    //********************begin deleteItem test code***************************************
+
     //********************end deleteItem test code*****************************************
 
     // Free the tree, quote selection and stdin

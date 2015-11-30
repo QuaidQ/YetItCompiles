@@ -180,7 +180,7 @@ void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[]);
 void commandDefine(Tree tree,  char szRemainingTxt[]);
 void stripNewline( char *str, int size);
 void commandPrint(Tree tree,  char szRemainingTxt[]);
-void commandDelete(Tree tree, QuoteSelection quote,  char szId[]);
+void commandDelete(Tree tree,  char szId[]);
 void commandQuote(Tree tree, QuoteSelection quote , char szRemainingTxt[]);
 void printQuoteDetails(Tree tree,QuoteSelection quote);
 QuoteSelectionItem createItem(Tree tree , char szRemainingTxt[]);

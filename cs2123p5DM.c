@@ -188,12 +188,11 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
  Notes:
 
  *************************************************************************/
-void commandDelete(Tree tree, QuoteSelection quote, char szId[])
+void commandDelete(Tree tree, char szId[] )
 {
-     printf("Command DELETE processed. Item to be deleted: %s\n" ,szId );
-    /******************************************
-     * call Delete here                       *
-     *****************************************/
+     printf("Command DELETE processed. Item to be deleted: .%s.\n" ,szId );
+
+     deleteItem(tree, szId);
 }
 /*********************commandDefine****************************************
   void command(Tree tree, QuoteSelection quote, char szRemainingTxt[])
@@ -426,7 +425,7 @@ void processCommand(Tree tree, QuoteSelection quote, char szInputBuffer[])
             commandPrint(tree, szRemainingTxt);
         }
         if(strcmp(szCommandType, "DELETE") == 0){
-        commandDelete(tree, quote , szRemainingTxt);
+        commandDelete(tree, szRemainingTxt);
         }
         if(strcmp(szCommandType, "QUOTE") == 0){
         commandQuote(tree, quote , szRemainingTxt);
