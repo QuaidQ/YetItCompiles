@@ -107,13 +107,13 @@ QUOTE END
 *
 * Delete the seaGreen, but dont delete empress and blackPearl
 *
-* DELETE seaGreen
-* PRINT ALL
+DELETE seaGreen
+PRINT ALL
 ******************************** DELETE OPTION VALUE **************
 *
 * Delete the color_oy, but dont delete audio-oy and engine_oy
 *
-* DELETE color_oy
-* PRINT ALL
+DELETE color_oy
+PRINT ALL
 *
-* PRINT ONE color_oy
+PRINT ONE color_oy
