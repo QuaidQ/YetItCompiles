@@ -22,6 +22,8 @@ N/A
 Notes:
 
  *************************************************************************/
+
+
 void commandDefine(Tree tree, char szRemainingTxt[])
 {    //get second command to see if its Option or value
         char szsubComandType[16];
@@ -100,21 +102,21 @@ void commandDefine(Tree tree, char szRemainingTxt[])
 
         return;
 }
-/*********************commandDefine****************************************
-  void commandDefine(Tree tree, QuoteSelection quote, char szRemainingTxt[])
-purpose:
-to insert into the tree.
-first takes care of the root being empty.
-once the root is not empty in branches off from them, inserting at childs
-and siblings.
+/*********************insertPriceMenu*************************************
+ void insertPriceMenu(Tree tree, Element element, char szParentId[])
+
+purpose:to insert into the tree.
+        first takes care of the root being empty.
+        once the root is not empty in branches off from them, inserting at childs
+        and siblings.
 Parameters:
-I Tree tree     tree of menu to be inserted to and printed off
-I QuoteSelection quote   quote to the menu to be inserted and printed off
-I char szParentId[]  id of the nodes parent to be inserted
+    I Tree tree     tree of menu to be inserted to and printed off
+    I QuoteSelection quote   quote to the menu to be inserted and printed off
+    I char szParentId[]  id of the nodes parent to be inserted
 Returns:
 N/A
 Notes:
-handles diffrent types of inserting errors that user might place
+handles different types of inserting errors that user might place
  ************************************************************************/
 
 void insertPriceMenu(Tree tree, Element element, char szParentId[])
@@ -176,15 +178,15 @@ void insertPriceMenu(Tree tree, Element element, char szParentId[])
 
 /*********************commandDelete****************************************
   void commandDelete(Tree tree, QuoteSelection quote, char szId[])
-  purpose:
+ purpose:
   the function is called after a command DELETE has been initiated.
   We find out the rest of the buffer
   Call a function to delete with!
-  Parameters:
+ Parameters:
   I Tree tree     tree of menu to be inserted to and printed off
   I QuoteSelection quote   quote to the menu to be inserted and printed off
   I char szId[]   id of element to be deleted
-  Returns:
+ Returns:
   N/A
  Notes:
 
@@ -195,22 +197,13 @@ void commandDelete(Tree tree, char szId[] )
      deleteItem(tree, szId);
 
 }
-/*********************commandDefine****************************************
-  void command(Tree tree, QuoteSelection quote, char szRemainingTxt[])
+/*********************commandPrint****************************************
+  void commandPrint(Tree tree,  char szRemainingTxt[])
 purpose:
-the function is called from the driver that gets a line of input
-Its passed a line of input and it gets the first command of the line
- ********
- command types
- 1.DEFINE
- 2.PRINT
- 3.DELETE
- 4.QUOTE
- ********
- calls different functions depending of the type of command.
+    the function is called from the driver that gets a line of input is print
+    in the function you determine if the input is ALL or ONE and call functions respectively.
 Parameters:
 I Tree tree     tree of menu to be inserted to and printed off
-I QuoteSelection quote   quote to the menu to be inserted and printed off
 I char szRemainingTxt[]  buffer after you've taken out the initial define command
 Returns:
 N/A
