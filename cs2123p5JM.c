@@ -68,6 +68,7 @@ void deleteItem(Tree tree, char szId[])
         else
             pParent->pChild = pSibling;
     }
+
     //delete nodes
     freeSubTree(p->pChild);
     free(p);
@@ -105,34 +106,23 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
     if (p == NULL)
         return NULL;
 
-    //return null if p does not have a valid szId
-    if (findId(p, pkid->element.szId) != NULL)
-    {
-        //check to see if we've found the matching parent
-        if (p == pkid)
-            return pParent;
+    //check to see if we've found the matching parent
+    if (p == pkid)
+        return pParent;
 
-        //recurse into sibling node if one exists
-        if (p->pSibling != NULL) {
-            //in this call, the sibling node is now p
-            pTemp = findParent(pParent, p->pSibling, pkid);
+    //recurse into sibling node
+    pTemp = findParent(pParent, p->pSibling, pkid);
 
-            //return pTemp if it's not NULL
-            if (pTemp != NULL)
-                return pTemp;
-        }
+    //return pTemp if it's not NULL
+    if (pTemp != NULL)
+        return pTemp;
 
-        //recurse into child node if one exists
-        if (p->pChild != NULL) {
-            //in this call, p is the new parent, and the child node is the new p
-            pTemp = findParent(p, p->pChild, pkid);
+    //recurse into child node
+    pTemp = findParent(p, p->pChild, pkid);
 
-            //return pTemp if it's not NULL
-            if (pTemp != NULL)
-                return pTemp;
-        }
-    }
-    return NULL;
+    //return pTemp if it's not NULL
+    if (pTemp != NULL)
+        return pTemp;
 }
 /******************** findPredSibling ****************************************
  NodeT *findPredSibling(NodeT *p, NodeT *pPredSibling)
