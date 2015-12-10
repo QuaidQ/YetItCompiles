@@ -111,17 +111,11 @@ NodeT *findParent(NodeT *pParent, NodeT *p, NodeT *pkid)
         return pParent;
 
     //recurse into sibling node
-    pTemp = findParent(pParent, p->pSibling, pkid);
-
-    //return pTemp if it's not NULL
-    if (pTemp != NULL)
+    if ((pTemp = findParent(pParent, p->pSibling, pkid)) != NULL)
         return pTemp;
 
     //recurse into child node
-    pTemp = findParent(p, p->pChild, pkid);
-
-    //return pTemp if it's not NULL
-    if (pTemp != NULL)
+    if ((pTemp = findParent(p, p->pChild, pkid)) != NULL)
         return pTemp;
 }
 /******************** findPredSibling ****************************************
